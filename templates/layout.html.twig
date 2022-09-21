@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta content="ORDC" name="description" />
+        <meta content="" name="" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="public/assets/images/favicon.png">
+        {% block head %}{% endblock %}   
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="public/assets/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type="text/css" href="public/assets/css/metismenu.min.css">
+            <link rel="stylesheet" type="text/css" href="public/assets/css/icons.css"/>
+            <link rel="stylesheet" type="text/css" href="public/assets/css/style.css"/>
+        {% endblock %}
+    </head>   
+    <body class="pb-0">
+    
+        {% block page_content %}
+            {% block content %}{% endblock %}
+        {% endblock %}
+   
+        {% block javascripts %}
+            <script src="public/assets/js/jquery.min.js"></script>
+            <script src="public/assets/js/bootstrap.bundle.min.js"></script>
+            <script src="public/assets/js/metisMenu.min.js"></script>
+            <script src="public/assets/js/jquery.slimscroll.js"></script>
+            <script src="public/assets/js/waves.min.js"></script>
+
+            <!-- Main js -->
+            <script src="public/assets/js/main.js"></script>
+        {% endblock %}
+    </body>
+</html>

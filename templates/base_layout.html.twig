@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% block page_content %}
+    <div id="wrapper">
+        {% include('partial/navbar.html.twig') %}
+        
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+                    {% include('partial/breadcrumb.html.twig') %}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            {% include('partial/base_footer_layout.html.twig') %}
+        </div>
+    </div>
+{% endblock %}
