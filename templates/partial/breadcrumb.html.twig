@@ -1,0 +1,16 @@
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">{{ page_title }}</h4>
+            <ol class="breadcrumb">
+            {% for item in breadcrumb %}
+                {% if not loop.last %}
+                    <li class="breadcrumb-item"><a href="{{ item.path }}">{{ item.name }}</a></li>  
+                {% else %}
+                    <li class="breadcrumb-item active">{{ item.name }}</li>
+                {% endif %}
+            {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
