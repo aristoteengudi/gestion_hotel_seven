@@ -1,0 +1,8 @@
+endpoint:
+    auth: "http://10.25.23.111/ordc-api-annuaire/rest/connect/"
+
+ftp_endpoint:
+    host: localhost
+    user: test
+    password: 123456
+    port: 21

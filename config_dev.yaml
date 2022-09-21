@@ -1,0 +1,13 @@
+database:
+    db_host : localhost
+    db_user : root
+    db_pwd  :
+    db_name : gestion_hotel
+    port    : 3306
+    driver  : pdo_mysql
+
+
+STATUS_ACCOUNT_ACTIVED : 10
+DEFAULT_ACCOUNT_STATUS  : 100
+MESSAGE_ACCOUNT_DEACTIVED : Merci de signaler à l'administrateur, car votre compte n'est pas encore activé.
+AUTHENTIFICATION_SUCCESS : AUTHENTIFICATION REUSSI
