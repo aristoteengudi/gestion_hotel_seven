@@ -1,0 +1,63 @@
+{% extends 'login_layout.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="wrapper-page">
+
+        <div class="card overflow-hidden account-card mx-3">
+
+            <div class="bg-primary p-4 text-white text-center position-relative">
+                <h4 class="font-20 m-b-5">SEVEN ERP</h4>
+                <p class="text-white-50 mb-4"></p>
+                <a href="index.html" class="logo logo-admin"><img src="public/assets/images/" height="50" alt="logo"></a>
+            </div>
+            <div class="account-card-content">
+
+                <form class="form-horizontal m-t-30" action="./login" method="post">
+
+                    <div class="form-group">
+                        <label for="username">nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="saisissez votre nom d'utilisateur" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userpassword">mot de passe</label>
+                        <input type="password" class="form-control" id="userpassword" name="password" placeholder="saisissez votre mot de pass" required>
+                    </div>
+
+                    <div class="form-group row m-t-20">
+
+                        <div class="col-md-8 offset-4">
+                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Se Connecter</button>
+                        </div>
+                    </div>
+
+                    {% if error is empty %}
+
+                    {% else %}
+
+                        <div class="alert alert-danger" role="alert">
+                             {{ error.message | raw }}
+                            {{ error.warning | raw }}
+                        </div>
+                        {% set alert %}
+                            alert("test");
+                        {% endset %}
+
+                    {% endif %}
+                    <div class="form-group m-t-10 mb-0 row">
+                        <div class="col-12 m-t-20">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="m-t-40 text-center">
+        </div>
+
+    </div>
+
+
+{% endblock %}
