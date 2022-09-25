@@ -1,0 +1,93 @@
+{% extends 'base_layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+    {# TO DO #}
+    <br>
+    <div class="row">
+
+    </div>
+
+    <!-- end row -->
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .input-group-text {
+            font-size: 11px;
+        }
+    </style>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="public/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="public/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js"></script>
+    <script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+
+    <script src="public/plugins/select2/js/select2.min.js"></script>
+    <script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="public/assets/pages/form-advanced.init.js"></script>
+
+    <!-- HightChart  debut-->
+    <script src="public/assets/pages/highcharts.js"></script>
+    <script src="public/assets/pages/exporting.js"></script>
+    <script src="public/assets/pages/export-data.js"></script>
+    <script src="public/assets/pages/accessibility.js"></script>
+
+    <!-- HightChart fin-->
+
+
+    <script>
+        !function($) {
+            $('#range-date').datepicker({
+                language: 'fr',
+                toggleActive: true,
+                todayHighlight: true,
+                clearBtn:true,
+            });
+
+            $('#range-date_2').datepicker({
+                language: 'fr',
+                toggleActive: true,
+                todayHighlight: true,
+                clearBtn:true,
+            });
+            $('#range-date_3').datepicker({
+                language: 'fr',
+                toggleActive: true,
+                todayHighlight: true,
+                clearBtn:true,
+            });
+            $('#range-date_4').datepicker({
+                language: 'fr',
+                toggleActive: true,
+                todayHighlight: true,
+                clearBtn:true,
+            });
+            //facturation
+            $('#start_date_').datepicker("setDate", new Date());
+            $('#start_date_2').datepicker("setDate", new Date());
+
+            //end facturaiton
+
+            //subscription
+            $('#start_date_3').datepicker("setDate", new Date());
+            $('#end_date_3').datepicker("setDate", new Date());
+
+            $('#start_date_4').datepicker("setDate", new Date());
+            $('#end_date_4').datepicker("setDate", new Date());
+
+
+            //end subscription
+
+
+
+        }(window.jQuery)
+    </script>
+{% endblock %}
