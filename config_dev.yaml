@@ -2,7 +2,7 @@ database:
     db_host : localhost
     db_user : root
     db_pwd  :
-    db_name : gestion_hotel
+    db_name : db_seven
     port    : 3306
     driver  : pdo_mysql
 
