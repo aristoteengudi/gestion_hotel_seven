@@ -10,7 +10,10 @@
 		"doctrine/dbal": "^3.3",
 		"symfony/yaml": "^5.4",
 		"symfony/console": "^5.4",
-		"ghunti/highcharts-php": "^3.0"
+		"ghunti/highcharts-php": "^3.0",
+		"symfony/password-hasher": "^5.4",
+		"symfonycasts/reset-password-bundle": "^1.15",
+		"symfony/security-csrf": "^5.4"
 	},
 	"autoload" : {
 		"psr-4" : {
