@@ -10,11 +10,9 @@ date_default_timezone_set('Africa/Kinshasa');
 
 
 use Symfony\Component\Console\Application;
-use App\Command\RetrieveFileCommand;
-use App\Command\LoadingDataFtp;
-use App\Command\LoadingData;
-use App\Command\ProcessCommand;
+use App\Command\CreateUser;
 
 $application = new Application();
+$application->add(new CreateUser());
 $exitcode = $application->run();
 exit($exitcode);
