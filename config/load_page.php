@@ -1,7 +1,7 @@
 <?php
 require_once 'session_loader.php';
 
-$twig->addGlobal("session", $_SESSION); //set session variable to global on twig templating
+$twig->addGlobal('session', $_SESSION); //set session variable to global on twig templating
 
 $page = 'index';
 if(isset($_GET['page']) && $_GET['page']){
