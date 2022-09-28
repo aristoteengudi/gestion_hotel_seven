@@ -34,7 +34,6 @@ if (empty($username) and empty($password)){
 } else {
 
 
-
     if (!empty($login->VerifyUsersExistByUsername($username))) {
 
         if ($check_user=$login->Login($username,$password)){
@@ -51,7 +50,7 @@ if (empty($username) and empty($password)){
                 );
 
 
-                LogUsers($array);
+                //LogUsers($array);
 
                 $params['error']=['message' => "<strong>{$MESSAGE_ACCOUNT_DEACTIVED}</strong> "];
 
@@ -59,17 +58,16 @@ if (empty($username) and empty($password)){
 
             }else{
 
-                $_SESSION['unique_id']  = $check_user['unique_id'];
-                $_SESSION['fullname']   = $check_user['fullname'];
-                $_SESSION['firstname']  = $check_user['firstname'];
-                $_SESSION['user_id']    = $check_user['id'];
+                $_SESSION['unique_id']  = $check_user['uid'];
+                $_SESSION['username']   = $check_user['username'];
+                $_SESSION['first_name']  = $check_user['first_name'];
+                $_SESSION['user_id']    = $check_user['user_id'];
                 $_SESSION['name']       = $check_user['name'];
-                $_SESSION['roles']      = roles($check_user['id']);
+               // $_SESSION['roles']      = roles($check_user['id']);
 
                 $array = array(
-                    'users_id'          =>  $check_user['id'],
+                    'users_id'          =>  $check_user['user_id'],
                     'username'          =>  $check_user['username'],
-                    'full_name'         =>  $check_user['fullname'],
                     'status'            =>  $STATUS_ACCOUNT_ACTIVED,
                     'description'       =>  $AUTHENTIFICATION_SUCCESS,
                     'created_at'        =>  $date_now,
@@ -77,7 +75,7 @@ if (empty($username) and empty($password)){
                 );
 
 
-                LogUsers($array);
+                //LogUsers($array);
 
                 header("LOCATION: ".getBaseUrl());
             }
