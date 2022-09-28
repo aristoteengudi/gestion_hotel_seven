@@ -3,11 +3,12 @@
 
 namespace App\Model;
 
+use App\Classes\Security;
 
 class Users
 {
 
-    public $user_id;
+    private $user_id;
     public $username;
     public $name;
     public $first_name ;
@@ -15,12 +16,13 @@ class Users
     public $phone_number;
     public $uid;
     public $status;
-    public $created_at;
-    public $updated_at;
     public $password_hash ;
 
+    private $created_at;
+    private $updated_at;
 
-    public $db;
+
+    private $db;
 
     public function __construct()
     {
@@ -35,13 +37,14 @@ class Users
 
         try{
 
-            $this->db->insert('user',
+            $this->db->insert('t_users',
                 array(
+                    'username'      => $this->username,
                     'name'          => $this->name,
                     'first_name'    => $this->first_name,
                     'email'         => $this->email,
                     'phone_number'  => $this->phone_number,
-                    'uid'           => $this->uid,
+                    'uid'           => $this->getUid(),
                     'status'        => $this->status,
                     'created_at'    => $this->getCreatedAt(),
                     'update_at'     => $this->getUpdatedAt(),
@@ -67,7 +70,14 @@ class Users
 
     public function Login($username, $password){
 
-        return true;
+        $query = $this->db->fetchAssociative('SELECT * FROM t_users WHERE username = ?', array($username));
+
+        $password_verify = password_verify($password,$query['password_hash']);
+
+        if (!$password_verify){
+            return false;
+        }
+        return $query;
     }
 
     public function VerifyUsersExistByUsername($username){
@@ -101,7 +111,9 @@ class Users
 
     private function getUid(){
 
-        return $uid = 0010000 ;
+         $uid = new Security();
+
+         return $uid->generatAuthKey(15);
     }
 
 
