@@ -1,8 +1,8 @@
 <?php
 
 use GuzzleHttp\Client as Clients;
-use App\Security;
-use App\BulkInsertQuery;
+use App\Classes\Security;
+use App\Classes\BulkInsertQuery;
 use App\Model\Users;
 
 
