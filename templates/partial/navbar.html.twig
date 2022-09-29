@@ -4,10 +4,10 @@
     <div class="topbar-left">
         <a href="./" class="logo">
             <span>
-                <img src="public/assets/images/logo.png" alt="" height="18">
+                <img src="public/assets/images/" alt="" height="18">
             </span>
             <i>
-                <img src="public/assets/images/logo.png" alt="" height="22">
+                <img src="public/assets/images/" alt="" height="22">
             </i>
         </a>
     </div>
@@ -25,11 +25,11 @@
             <li class="dropdown notification-list list-inline-item">
                 <div class="dropdown notification-list nav-pro-img">
                     <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="public/assets/images/logo.png" alt="user" class="rounded-circle">
+                        <img src="public/assets/images/" alt="user" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                         <!-- item-->
-                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5"></i> {{ session.fullname }}</a>
+                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5"></i> {{ session.name | capitalize}} {{ session.first_name | capitalize }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="logout"><i class="mdi mdi-power text-danger"></i> Logout</a>
                     </div>
@@ -62,17 +62,17 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0);" class="waves-effect"><i class="ti-align-justify"></i><span> Clients <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class=" ti-user "></i><span> Clients <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                     <ul class="submenu">
                         <li><a href="./reservation">Réservation</a></li>
-                        <li><a href="./chambre">Nos Chambres</a></li>
-                        <li><a href="./banque-sang">Nos Clients</a></li>
+                        <li><a href="./chambres">Nos Chambres</a></li>
+                        <li><a href="./clients">Nos Clients</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="./reservation" class="waves-effect">
-                        <i class="ti-home"></i> <span> Dépenses </span>
+                    <a href="./depenses" class="waves-effect">
+                        <i class="ti-stats-down"></i> <span> Dépenses </span>
                     </a>
                 </li>
 
@@ -80,11 +80,11 @@
 
 {#                {% if 'rapport' in session.roles %}#}
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="ti-align-justify"></i><span> Rapport <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class=" ti-bar-chart-alt "></i><span> Rapport <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="./centres">Réservation</a></li>
+                            <li><a href="./reservations">Réservation</a></li>
                             <li><a href="#">Charges (Dépense et Autres)</a></li>
-                            <li><a href="./banque-sang">Autres Charges</a></li>
+                            <li><a href="">Autres Charges</a></li>
                         </ul>
                     </li>
 
@@ -93,7 +93,7 @@
 {#                {% if 'admin' in session.roles %}#}
 
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="ti-align-justify"></i><span> Compte <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class=" ti-harddrive "></i><span> Compte <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li><a href="./users">Utilisateurs</a></li>
                             <li><a href="./historique">Historique Connexion</a></li>
