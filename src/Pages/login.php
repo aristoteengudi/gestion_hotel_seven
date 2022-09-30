@@ -50,7 +50,12 @@ if (empty($username) and empty($password)){
                 );
 
 
-                //LogUsers($array);
+                $logs = new \App\Model\Logs();
+                $logs->username = $check_user['username'];
+                $logs->users_id = $check_user['user_id'];
+                $logs->status   = $DEFAULT_STATUS;
+                $logs->description = $MESSAGE_ACCOUNT_DEACTIVED ;
+                $logs->save();
 
                 $params['error']=['message' => "<strong>{$MESSAGE_ACCOUNT_DEACTIVED}</strong> "];
 
@@ -74,8 +79,12 @@ if (empty($username) and empty($password)){
                     'updated_at'        =>  $date_now,
                 );
 
-
-                //LogUsers($array);
+                $logs = new \App\Model\Logs();
+                $logs->username = $check_user['username'];
+                $logs->users_id = $check_user['user_id'];
+                $logs->status   = $STATUS_ACCOUNT_ACTIVED;
+                $logs->description = $AUTHENTIFICATION_SUCCESS ;
+                $logs->save();
 
                 header("LOCATION: ".getBaseUrl());
             }
@@ -99,22 +108,6 @@ if (empty($username) and empty($password)){
 }
 
 
-/**
- * @param array $array
- * @throws \Doctrine\DBAL\DBALException
- * insert users log to database
- */
-function LogUsers(array $array){
-    global $db;
-    // isset($_SERVER['REMOTE_HOST']) ? $_SERVER['REMOTE_HOST'] : null;
-    $security = new Security();
-    $array['useragent']=$_SERVER['HTTP_USER_AGENT'];
-    $array['ip']=@get_user_ip();
-    $array['host']=@gethostbyaddr(get_user_ip());
-    $array['logs_uid']=$security::randomizer_sting(15,'LOGS');
-
-    $db->insert('tb_logs', $array);
-}
 
 /**
  * get user roles by her id AI
