@@ -1,7 +1,7 @@
 <?php
 
-use App\Security;
 
+/*
 if (!in_array('admin',$_SESSION['roles'])){
     $params = [
         'title' => '403 forbidden - access restricted',
@@ -11,6 +11,8 @@ if (!in_array('admin',$_SESSION['roles'])){
     render('access_denied.html.twig', $params);
     exit();
 }
+
+*/
 
 $breadcrumb = [
     [ 'path' => './', 'name' => 'Dashboard'],
@@ -185,89 +187,16 @@ switch ($action){
     case 'create_users':
         $message = array();
 
-        $db->beginTransaction();
-
-        try{
-
-            $password_hash = password_hash($_POST['password'],PASSWORD_DEFAULT);
-            $security = new Security();
-
-
-            $array = array(
-                'username'=>htmlentities($_POST['email']),
-                'email'=>htmlentities($_POST['email']),
-                'name'=>htmlentities($_POST['name']),
-                'fullname'=>htmlentities($_POST['fullname']),
-                'firstname'=>htmlentities($_POST['firstname']),
-                'phone_number'=>htmlentities($_POST['phone_number']),
-                'unique_id'=>$security->generatAuthKey(20),
-                'status'=>1,
-                'password'=>$password_hash,
-                'created_at'=>$date_time,
-                'updated_at'=>$date_time,);
-
-            $insert_data = $db->insert('tb_users', $array);
-
-            $insert_role = new \App\BulkInsertQuery($db,'tb_roles');
-
-            $insert_role->setColumns(['users_id','role','status','created_at','updated_at'])
-                ->setValues(array(
-                    ['users_id'=>$db->lastInsertId(), 'role'=>'simple', 'status'=>1,
-                        'created_at'=>$date_time,
-                        'updated_at'=>$date_time],
-
-                    ['users_id'=>$db->lastInsertId(), 'role'=>'rapport', 'status'=>0,
-                        'created_at'=>$date_time,
-                        'updated_at'=>$date_time],
-
-                    ['users_id'=>$db->lastInsertId(), 'role'=>'admin', 'status'=>0,
-                        'created_at'=>$date_time,
-                        'updated_at'=>$date_time],
-                    ['users_id'=>$db->lastInsertId(), 'role'=>'admin-full', 'status'=>0,
-                        'created_at'=>$date_time,
-                        'updated_at'=>$date_time]
-                ))->execute();
-
-            $db->commit();
-
-            http_response_code(200);
-            $message = array('response_code'=>200,
-                'message'=>"account created.");
-
-        }catch (\Exception $exception){
-            $db->rollBack();
-            if (strpos($exception->getMessage(),'Integrity constraint violation')!==false){
-                http_response_code(200);
-                $message = array('response_code'=>250,
-                    'message'=>'account already exist. veuillez choisir un autre nom d\'utilisateur.');
-            }else{
-                http_response_code(500);
-                $message = array('response_code'=>500,
-                    'message'=>$exception->getMessage());
-            }
-
-        }
-
-        echo \GuzzleHttp\json_encode($message);
         break;
     case 'deactivate':
 
-        $role_id = $_POST['id'];
-        $user_id = $_POST['user_id'];
-
-        $status_compte = isset($_POST['status_compte']) ? $_POST['status_compte'] : '0';
-
-        $array = array($status_compte,$date_time,$user_id);
-        $db->executeUpdate('UPDATE tb_users SET status = ? , updated_at = ? WHERE id = ?',$array);
 
         break;
     default:
-        function getAllUsers(){
-            global $db;
-            $user = $db->fetchAll('SELECT * FROM tb_users order by id desc');
 
-            return $user;
-        }
-        $params['data']=getAllUsers();
+        $user = new \App\Model\Users();
+
+        $params ['list_users'] = $user->getAllUsers();
+
         render('users.html.twig', $params);
 }
