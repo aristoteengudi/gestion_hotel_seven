@@ -59,7 +59,7 @@ class Logs
         return $query = $this->db->fetchAllAssociative('
                             SELECT a.log_id, a.`users_id`,a.`username`,a.`status`,a.`description`,
                             a.`useragent`, a.`ip`,a.`created_at`,
-                            CONCAT(b.`first_name`,\' \',b.`name`) AS NAMES 
+                            CONCAT(b.`first_name`,\' \',b.`name`) AS names 
                             FROM `t_logs` a
                             INNER JOIN `t_users` b
                             ON a.users_id = b.user_id ');
