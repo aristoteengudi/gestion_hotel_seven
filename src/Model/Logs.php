@@ -56,7 +56,13 @@ class Logs
     }
 
     public function getAllLogs(){
-        return $query = $this->db->fetchAllAssociative('SELECT * FROM t_logs');
+        return $query = $this->db->fetchAllAssociative('
+                            SELECT a.`users_id`,a.`username`,a.`status`,a.`description`,
+                            a.`useragent`, a.`ip`,a.`created_at`,
+                            CONCAT(b.`first_name`,\' \',b.`name`) AS NAMES 
+                            FROM `t_logs` a
+                            INNER JOIN `t_users` b
+                            ON a.users_id = b.user_id ');
     }
 
     public function FindLogById($log_id){}
