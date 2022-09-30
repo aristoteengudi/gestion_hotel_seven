@@ -57,7 +57,7 @@ class Logs
 
     public function getAllLogs(){
         return $query = $this->db->fetchAllAssociative('
-                            SELECT a.`users_id`,a.`username`,a.`status`,a.`description`,
+                            SELECT a.log_id, a.`users_id`,a.`username`,a.`status`,a.`description`,
                             a.`useragent`, a.`ip`,a.`created_at`,
                             CONCAT(b.`first_name`,\' \',b.`name`) AS NAMES 
                             FROM `t_logs` a
