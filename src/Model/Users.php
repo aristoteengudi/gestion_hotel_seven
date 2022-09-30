@@ -47,7 +47,7 @@ class Users
                     'uid'           => $this->getUid(),
                     'status'        => $this->status,
                     'created_at'    => $this->getCreatedAt(),
-                    'update_at'     => $this->getUpdatedAt(),
+                    'updated_at'     => $this->getUpdatedAt(),
                     'password_hash' =>$this->getPasswordHash()));
 
             $this->db->commit();
@@ -62,9 +62,25 @@ class Users
 
     public function UpdateUser(){
 
+        try{
+
+            $this->db->update('user',
+                array(),
+                array());
+
+
+        }catch (\Exception $exception){
+
+        }
+
     }
 
     public function getAllUsers(){
+
+        $query = $this->db->fetchAllAssociative('SELECT * FROM t_users');
+
+        return $query;
+
 
     }
 
