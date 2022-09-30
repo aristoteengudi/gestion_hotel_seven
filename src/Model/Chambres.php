@@ -29,16 +29,16 @@ class Chambres
 
         try{
 
-            $this->db->insert('t_users',
+            $this->db->insert('t_chambres',
                 array(
-                    'numero_chambre'    => $this->numero_chambre,
-                    'description'       => $this->description,
-                    'disponibilite'     => $this->disponibilite,
-                    'nombre_lit'        => $this->nombre_lit,
-                    'prix'              => $this->prix,
-                    'etage'             => $this->etage,
-                    'created_at'        => $this->getCreatedAt(),
-                    'update_at'         => $this->getUpdatedAt()));
+                    'numero_chambre'        => $this->numero_chambre,
+                    'description'           => $this->description,
+                    'disponibilite'         => $this->getBedroomState(),
+                    'nombre_lit'            => $this->nombre_lit,
+                    'prix'                  => $this->prix,
+                    'localisation_chambre'  => $this->etage,
+                    'created_at'            => $this->getCreatedAt(),
+                    'updated_at'            => $this->getUpdatedAt()));
 
             $this->db->commit();
 
@@ -79,6 +79,11 @@ class Chambres
     private function getUpdatedAt(){
 
         return date('Y-m-d H:i:s');
+    }
+
+    private function getBedroomState(){
+
+        return 'disponible';
     }
 
 }
