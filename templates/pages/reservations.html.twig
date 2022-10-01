@@ -1,0 +1,207 @@
+{% extends 'base_layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="">
+                        <div class="form-row">
+                            <div class="input-daterange input-group" id="date-range">
+                                <div class="col-md-3 mb-3">
+                                    <label for="inputStart">Du</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputStart"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="validationTooltipUsername" placeholder="mm/dd/yyyy" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="inputEnd">Au</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id=""><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" id="inputEnd" placeholder="mm/dd/yyyy" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="inputEnd">&nbsp;</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary waves-effect">Filter <i class="fas fa-filter"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="float-right d-none d-md-block">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light"
+                                    data-toggle="modal" data-target="#myModal">
+                                <i class="ti-upload mr-2"></i> Nouveau
+                            </button>
+                        </div>
+                    </div>
+                    <h4 class="mt-0 header-title"></h4>
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                        <tr>
+                            <th># id</th>
+                            <th>numéro_chambre</th>
+                            <th>prix</th>
+                            <th>nombre de lit</th>
+                            <th>localisation chambre</th>
+                            <th>disponibilité</th>
+                            <th>date création</th>
+                            <th>date mise à jours</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+*                        {% for value in list_chambre %}
+                            <tr>
+                                <td>{{ value.id }}</td>
+                                <td>{{ value.numero_chambre }}</td>
+                                <td>{{ value.prix }}</td>
+                                <td>{{ value.nombre_lit }}</td>
+                                <td>{{ value.localisation_chambre }}</td>
+                                <td>{{ value.disponibilite }}</td>
+                                <td>{{ value.created_at }}</td>
+                                <td>{{ value.updated_at }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+
+    {# modal#}
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="" id="submit_form" enctype="multipart/form-data" class="repeater">
+                    <div class="modal-header" style="background-color: #343a40">
+                        <h5 class="modal-title mt-0" id="myModalLabel">Ajout nouveau chambre</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-4 col-form-label">Numéro de la Chambre</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" name="numero_chambre" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-4 col-form-label">Prix</label>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" name="prix" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-4 col-form-label">Nombre de Lit</label>
+                                <div class="col-sm-3">
+                                    <input type="number" class="form-control" name="nombre_lit" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-4 col-form-label">Localisation de la chambre</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="localisation_chambre" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-4 col-form-label">Description</label>
+                                <div class="col-sm-6">
+                                    <textarea name="description" id="" cols="30" rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-warning waves-effect"><i class="ti-reload mr-2"></i>Réinitialiser</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="ti-close mr-2"></i>Fermer</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" ><i class="ti-save mr-2"></i>Save</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <script>
+        function submitForm() {
+
+            submit_form.onsubmit  = async (e) => {
+
+                e.preventDefault();
+
+                let response = await fetch('./chambres?request=insert', {
+                    method: 'POST',
+                    body: new FormData(submit_form)
+                });
+
+                let result = await response.json();
+
+                if (result.response_code==200){
+                    swal({
+                        title: "Reussi",
+                        text: result.message,
+                        icon: "success",
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                    },2000);
+
+                    console.log(result.message);
+
+                }else {
+                    swal("Erreur survenus", result.message, "error");
+                }
+            };
+        }
+
+
+
+        submitForm();
+    </script>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="public/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="public/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="public/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Required datatable js -->
+    <script src="public/assets/js/sweetalert.min.js"></script>
+    <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="public/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="public/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="public/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="public/plugins/datatables/jszip.min.js"></script>
+    <script src="public/plugins/datatables/pdfmake.min.js"></script>
+    <script src="public/plugins/datatables/vfs_fonts.js"></script>
+    <script src="public/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="public/plugins/datatables/buttons.print.min.js"></script>
+    <script src="public/plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="public/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="public/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="public/assets/pages/datatables.init.js"></script>
+{% endblock %}
