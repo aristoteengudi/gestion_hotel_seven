@@ -6,7 +6,7 @@ use App\Classes\BulkInsertQuery;
 use App\Model\Users;
 
 
-$params = ['title'=>'Login - Dashboard Anemiapp'];
+$params = ['title'=>'Login - HOTEL SEVEN'];
 
 
 $http_client = new Clients();
