@@ -69,7 +69,11 @@ class Chambres
         return $query;
     }
 
-    public function getChambreDisponible(){}
+    public function getChambreDisponible(){
+        $query = $this->db->fetchAllAssociative("SELECT * FROM t_chambres where disponibilite = 'disponible' ");
+
+        return $query;
+    }
 
     private function getCreatedAt(){
         return date('Y-m-d H:i:s');
