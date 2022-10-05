@@ -27,20 +27,23 @@ class CreateUser extends Command
     {
         echo 'Begin...'.PHP_EOL;
 
+        try{
 
-        $user = new Users();
-        $user->username = 'admin';
-        $user->name = 'admin';
-        $user->first_name = 'admin';
-        $user->phone_number = '111111';
-        $user->email = 'admin@admin.com';
-        $user->status = '10';
-        $user->password_hash = '123456';
+            $user = new Users();
+            $user->username = 'admin';
+            $user->name = 'admin';
+            $user->first_name = 'admin';
+            $user->phone_number = '111111';
+            $user->email = 'admin@admin.com';
+            $user->status = '10';
+            $user->password_hash = '123456';
 
-        if ($user->CreateUser()){
+            $user->CreateUser();
+
             $output->writeln('message : finished');
-        }else{
-            $output->writeln('message : failed');
+
+        }catch (\Exception $exception){
+            $output->writeln("message : {$exception->getMessage()}");
 
         }
 
