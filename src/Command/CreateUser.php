@@ -3,6 +3,7 @@
 
 namespace App\Command;
 
+use App\Classes\config;
 use App\Model\Users;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,16 +30,19 @@ class CreateUser extends Command
 
         try{
 
-            $user = new Users();
-            $user->username = 'admin';
-            $user->name = 'admin';
-            $user->first_name = 'admin';
-            $user->phone_number = '111111';
-            $user->email = 'admin@admin.com';
-            $user->status = '10';
-            $user->password_hash = '123456';
 
-            $user->CreateUser();
+
+            foreach (config::getConfig()['TEST_USER'] as $user)
+
+            $users = new Users();
+            $users->username = $user['username'];
+            $users->name = $user['name'];
+            $users->first_name = $user['first_name'];
+            $users->phone_number = $user['phone_number'];
+            $users->email = $user['email'];
+            $users->status = $user['status'];
+            $users->password_hash = $user['password_hash'];
+            $users->CreateUser();
 
             $output->writeln('message : finished');
 
