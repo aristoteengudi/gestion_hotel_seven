@@ -4,7 +4,9 @@
 namespace App\Model;
 
 
-class Chambres
+use App\Classes\db;
+
+class Chambres extends db
 {
     public $numero_chambre;
     public $description;
@@ -14,14 +16,6 @@ class Chambres
     public $etage;
 
 
-    private $db;
-
-    public function __construct()
-    {
-        global $db;
-
-        $this->db = $db ;
-    }
 
     public function Save(){
 
