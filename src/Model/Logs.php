@@ -4,9 +4,10 @@
 namespace App\Model;
 
 
+use App\Classes\db;
 use App\Classes\UserAgent;
 
-class Logs
+class Logs extends db
 {
     private $db;
 
@@ -17,13 +18,6 @@ class Logs
     public $description;
 
 
-    public function __construct()
-    {
-        global $db;
-
-        $this->db = $db;
-
-    }
 
     public function save(){
 
