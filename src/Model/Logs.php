@@ -9,8 +9,6 @@ use App\Classes\UserAgent;
 
 class Logs extends db
 {
-    private $db;
-
     public $log_id;
     public $users_id;
     public $username;
