@@ -3,9 +3,10 @@
 
 namespace App\Model;
 
+use App\Classes\db;
 use App\Classes\Security;
 
-class Users
+class Users extends db
 {
 
     private $user_id;
@@ -22,14 +23,6 @@ class Users
     private $updated_at;
 
 
-    private $db;
-
-    public function __construct()
-    {
-        global $db;
-
-        $this->db = $db ;
-    }
 
     public function CreateUser(){
 
