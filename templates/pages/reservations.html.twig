@@ -42,7 +42,7 @@
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-primary waves-effect waves-light"
                                     data-toggle="modal" data-target="#myModal">
-                                <i class="ti-upload mr-2"></i> Nouveau
+                                <i class="ti-bookmark mr-2"></i> Réserver
                             </button>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </thead>
 
                         <tbody>
-*                        {% for value in list_chambre %}
+                        {% for value in list_chambre %}
                             <tr>
                                 <td>{{ value.id }}</td>
                                 <td>{{ value.numero_chambre }}</td>
@@ -87,48 +87,49 @@
             <div class="modal-content">
                 <form action="" id="submit_form" enctype="multipart/form-data" class="repeater">
                     <div class="modal-header" style="background-color: #343a40">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Ajout nouveau chambre</h5>
+                        <h5 class="modal-title mt-0" id="myModalLabel">Réserver une Chambre</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-4 col-form-label">Numéro de la Chambre</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" name="numero_chambre" required>
-                                </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-4 col-form-label">Noms du Client</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="name" required>
                             </div>
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-4 col-form-label">Prix</label>
-                                <div class="col-sm-2">
-                                    <input type="number" class="form-control" name="prix" required>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-4 col-form-label">Numéro Téléphone</label>
+                            <div class="col-sm-4">
+                                <input type="tel" class="form-control" name="telephone" required>
                             </div>
-
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-4 col-form-label">Nombre de Lit</label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" name="nombre_lit" required>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Nombre de Personnes</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" required>
+                                    <option>..</option>
+                                    {% for i in 1..10 %}
+                                        <option value="{{ i }}" title="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-4 col-form-label">Localisation de la chambre</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="localisation_chambre" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-4 col-form-label">Description</label>
-                                <div class="col-sm-6">
-                                    <textarea name="description" id="" cols="30" rows="5" class="form-control"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Chambre</label>
+                            <div class="col-sm-5">
+                                <select class="form-control">
+                                    <option>...</option>
+                                    {% for value in chambres_disponible %}
+                                        <option value="{{ value.numero_chambre }}" title="{{ value.description }}">Chambre n° {{ value.numero_chambre }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-warning waves-effect"><i class="ti-reload mr-2"></i>Réinitialiser</button>
                         <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="ti-close mr-2"></i>Fermer</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light" ><i class="ti-save mr-2"></i>Save</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" ><i class="ti-save mr-2"></i>Réserver</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
