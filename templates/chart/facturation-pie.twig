@@ -1,0 +1,89 @@
+
+<div class="col-xl-6">
+    <div id="accordion">
+        <div class="card-header p-3" id="headingOne">
+            <h6 class="m-0 font-14">
+                <a href="#collapseOne" class="text-dark collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne" title="Cacher  ou Afficher {{ kpi_1 }}">
+                    {{ kpi_1 }}
+                </a>
+            </h6>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="title_1" class="d-flex justify-content-center">
+                            <!--<h4 class="mt-0 header-title">{{ kpi_1 }}</h4>-->
+                        </div>
+                        <div class="form-row">
+                            <div class="input-daterange input-group" id="range-date">
+                                <div class="col-md-4 mb-3">
+                                    <label for="inputStart">Du</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputStart"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" id="start_date_" placeholder="mm/dd/yyyy" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="inputEnd">Au</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text " id=""><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" id="end_date" placeholder="mm/dd/yyyy" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="inputEnd">&nbsp;</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary waves-effect btn-sm" onclick="filterFacturationPie()">Filtrer <i class="fas fa-filter"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <h4 class="mt-0 header-title">{{ title }}</h4>
+                        <br>
+                        <div id="region_report" class="col-12">
+                            <figure class="highcharts-figure">
+                                <div id="facturation-pie"></div>
+                            </figure>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+{% block javascripts %}
+<script>
+    function filterFacturationPie() {
+        let start_date = $('#start_date_').val();
+        let end_date = $('#end_date').val();
+
+        let post = {
+            start_date: start_date,
+            end_date: end_date,
+        };
+
+        let response = fetch('./?request=facturation-pie',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(post)
+        }).then(response => response.json())
+            .then(result => {
+                console.log(result);
+                let container = 'facturation-pie';
+                Highcharts.chart(container, result);
+            });
+    }
+
+</script>
+{% endblock %}
