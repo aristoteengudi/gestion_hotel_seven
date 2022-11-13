@@ -14,7 +14,9 @@
 		"symfony/password-hasher": "^5.4",
 		"symfonycasts/reset-password-bundle": "^1.15",
 		"symfony/security-csrf": "^5.4",
-		"phpmailer/phpmailer": "^6.6"
+		"phpmailer/phpmailer": "^6.6",
+		"mpdf/mpdf": "^8.1",
+		"phpoffice/phpspreadsheet": "^1.25"
 	},
 	"autoload" : {
 		"psr-4" : {
