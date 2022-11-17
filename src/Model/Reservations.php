@@ -62,8 +62,22 @@ class Reservations extends db
     private function getStarDate(){}
     private function getEndDate(){}
 
+    public function getTotalReservation(){
+
+        $query = $this->db->fetchAssociative('SELECT count(*) as count_total_reservation FROM t_reservations');
+
+        return $query;
+
+    }
+
+    public function getTotalClient(){
+
+        $query = $this->db->fetchAssociative('SELECT count(*) as count_total_clients FROM t_clients');
+
+        return $query;
+    }
     private function getReservationUid(){ return Security::randomizer_integer(10,979);}
-    private function getCreatedDate(){ return date('Y-m-d H:i:s');}
+    private function getCreatedDate(){ return date('Y-mc-d H:i:s');}
 
     private function getUpdatedDate(){ return date('Y-m-d H:i:s');}
 }
