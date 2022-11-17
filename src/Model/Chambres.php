@@ -69,6 +69,13 @@ class Chambres extends db
         return $query;
     }
 
+
+    public function getTotalChambreDisponible(){
+        $query = $this->db->fetchAssociative("SELECT count(*) as count_total_chambre_disponible FROM t_chambres where disponibilite = 'disponible'");
+
+        return $query;
+    }
+
     private function getCreatedAt(){
         return date('Y-m-d H:i:s');
 
