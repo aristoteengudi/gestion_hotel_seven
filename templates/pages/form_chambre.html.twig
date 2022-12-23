@@ -1,0 +1,206 @@
+{% extends 'base_layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+    {# TO DO #}
+    <div class="row">
+        <div id="accordion" class='container col-xl-12'>
+            <div class="card mb-1">
+                <div class="card-header p-3" id="headingOne">
+                    <h6 class="m-0 font-14">
+                        <a href="#collapseOne" class="text-dark collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne">
+                            {{ page_title }}
+                        </a>
+                    </h6>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                    <div class="card-body">
+                        <form action="" id="update_customer" enctype="multipart/form-data" >
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Uniq_ID</label>
+                                    <input type="text" class="form-control" name='customer_name' id="customer_name"
+                                           value="{{ random()[:6]}}SEV{{ "now"|date("y") }}"
+                                           readonly
+                                           required >
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <label for="inputPassword4">Coût</label>
+                                    <input type="text" class="form-control" name='customer_firstname' id="inputPassword4"
+                                           data-parsley-type="digits"
+                                           data-parsley-required-message="prière de saisir le coût."
+                                           data-parsley-type-message="prière de saisir une valeur numérique"
+                                           placeholder="50"
+                                           required>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputPassword4">Currency / Devise</label>
+                                    <select name="currency" id="currency" class="form-control"
+                                            data-parsley-required-message="prière de selectionner la devise."
+                                            required>
+                                        <option value=""></option>
+                                        <option value="CDF">CDF / Franc Congolais</option>
+                                        <option value="USD">USD / Dollars Americains</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="inputEmail4">Numéro Chambre</label>
+                                    <input type="text" class="form-control" name='numero_chambre' id="numero_chambre"
+                                           data-parsley-required-message="prière de saisir le numero de la chambre."
+                                           required >
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputPassword4">Nombre de Lit</label>
+                                    <select name="nombre_lit" id="nombre_lit" class="form-control"
+                                            data-parsley-required-message="prière de selectionner le nombre de lit."
+                                            required>
+                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Localisation de la chambre</label>
+                                    <textarea name="localisation_chambre" class="form-control" id="" cols="10" rows="3"
+                                              data-parsley-required-message="prière de saisir la localisation ou emplacement de la chambre tout en détails" required
+                                    ></textarea>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Description de la chambre</label>
+                                    <textarea name="description_chambre" class="form-control" id="" cols="10" rows="3"
+                                              data-parsley-required-message="prière de saisir la description de la chambre" required
+                                    ></textarea>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <div>
+                                        <label for="cust_photo_piece_identite" class="">Image de la chambre </label>
+                                        <div class="form-group row">
+                                            <div class="input-group col-9">
+                                                <input type="file" name="chambre_photo" id="chambre_photo"
+                                                       class="filestyle" data-input="false" data-buttonname="btn-secondary"
+                                                       data-parsley-required-message="prière d'attaché la photo"
+                                                       required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-secondary waves-effect">Réinitialiser</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="ti-save mr-2"></i>Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end row -->
+
+    <!-- end row -->
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .input-group-text {
+            font-size: 11px;
+        }
+    </style>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="public/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="public/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js"></script>
+    <script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+
+    <script src="public/plugins/select2/js/select2.min.js"></script>
+    <script src="public/plugins/parsleyjs/parsley.min.js"></script>
+
+    <!-- sweet alert-->
+    <script src="public/assets/js/sweetalert.min.js"></script>
+    <!-- -->
+
+    <script>
+        function processForm() {
+            update_customer.onsubmit  = async (e) => {
+                if (!$('form').parsley().isValid()){
+                    console.log("prière de remplir toutes les champs.");
+                    return false;
+                }
+                e.preventDefault();
+                let response = await fetch('./update_customer?request=change_owwner', {
+                    method: 'POST',
+                    body: new FormData(update_customer)
+                });
+
+                let result = await response.json();
+                if (result.response_code==200) {
+                    swal({
+                        title: "Reussi",
+                        text: result.message.resultDesc,
+                        icon: "success",
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+
+                    console.log(result.message);
+                }else if (result.response_code==300){
+                    swal("Erreurs survenus", result.message, "error");
+                }else {
+                    swal("Erreurs survenus", result.message, "error");
+                }
+            }
+        }
+
+        function validateForm()
+        {
+            var fields = ["cust_msisdn, cust_name", "cust_firstname", "cust_lastname",
+                "cust_genre", "cust_civilite", "cust_province","cust_type_piece_identite",
+                "cust_numero_piece","cust_photo_piece_identite","cust_fiche_identification"];
+            var i, l = fields.length;
+            let fieldname;
+            for (i = 0; i < l; i++) {
+                fieldname = fields[i];
+                if (document.forms["update_customer"][fieldname].value === "") {
+                    alert(fieldname + " can not be empty");
+                    return false;
+                }
+            }
+            return true;
+        }
+        function LoadParsleyAndSlect2(){
+            $(document).ready(function() {
+                $('form').parsley();
+                $(".select2").select2();
+            });
+        }
+
+        function checkNumber(value) {
+            let pattern = /^\d+$/;
+            console.log(pattern.test(value.value));
+        }
+        LoadParsleyAndSlect2();
+        processForm();
+    </script>
+
+    <script>
+    </script>
+{% endblock %}
