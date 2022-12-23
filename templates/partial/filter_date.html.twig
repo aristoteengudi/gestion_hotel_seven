@@ -1,0 +1,44 @@
+<form action="filter">
+    <div class="form-row">
+        <div class="input-daterange input-group" id="date-range">
+            <div class="col-md-3 mb-3">
+                <label for="inputStart">Du</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputStart"><i class="mdi mdi-calendar"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="" name="start_date" value="{{ start_date }}" placeholder="dd/mm/yyyy" required>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="inputEnd">Au</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id=""><i class="mdi mdi-calendar"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="" name="end_date" value="{{ end_date }}" placeholder="dd/mm/yyyy" required>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="inputEnd">Status</label>
+                <div class="input-group">
+                    <select class="form-control" name="room_status" id="">
+                        <option value=""></option>
+                        <option value="disponible">Disponible</option>
+                        <option value="indisponible">Indisponible</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+                <label for="inputEnd">&nbsp;</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary waves-effect" type="submit">Filtrer <i class="fas fa-filter"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
