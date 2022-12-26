@@ -10,10 +10,14 @@ class Chambres extends db
 {
     public $numero_chambre;
     public $description;
-    public $disponibilite;
+    public $etat_disponibilite;
+    public $localisation_chambre;
+    public $chambre_uniqid;
+    public $intitule_chambre;
+    public $categorie;
     public $nombre_lit;
-    public $prix;
-    public $etage;
+    public $cout;
+
 
 
 
@@ -27,10 +31,13 @@ class Chambres extends db
                 array(
                     'numero_chambre'        => $this->numero_chambre,
                     'description'           => $this->description,
-                    'disponibilite'         => $this->getBedroomState(),
+                    'etat_disponibilite'         => $this->getBedroomState(),
                     'nombre_lit'            => $this->nombre_lit,
-                    'prix'                  => $this->prix,
-                    'localisation_chambre'  => $this->etage,
+                    'cout'                  => $this->cout,
+                    'localisation_chambre'  => $this->localisation_chambre,
+                    'categorie'         => $this->categorie,
+                    'chambre_uniqid'         => $this->chambre_uniqid,
+                    'intitule_chambre'         => $this->intitule_chambre,
                     'created_at'            => $this->getCreatedAt(),
                     'updated_at'            => $this->getUpdatedAt()));
 
