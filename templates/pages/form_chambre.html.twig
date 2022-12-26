@@ -16,18 +16,18 @@
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="">
                     <div class="card-body">
-                        <form action="" id="update_customer" enctype="multipart/form-data" >
+                        <form action="./ajout_chambre?r=create" id="ajout_chambre" enctype="multipart/form-data"  method="post">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="inputEmail4">Uniq_ID</label>
-                                    <input type="text" class="form-control" name='customer_name' id="customer_name"
+                                    <input type="text" class="form-control" name='chambre_uniqid' id="chambre_uniqid"
                                            value="{{ random()[:6]}}SEV{{ "now"|date("y") }}"
                                            readonly
                                            required >
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="inputPassword4">Coût</label>
-                                    <input type="text" class="form-control" name='customer_firstname' id="inputPassword4"
+                                    <input type="text" class="form-control" name='chambre_cout' id="chambre_cout"
                                            data-parsley-type="digits"
                                            data-parsley-required-message="prière de saisir le coût."
                                            data-parsley-type-message="prière de saisir une valeur numérique"
@@ -37,7 +37,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="inputPassword4">Currency / Devise</label>
-                                    <select name="currency" id="currency" class="form-control"
+                                    <select name="chambre_currency" id="chambre_currency" class="form-control"
                                             data-parsley-required-message="prière de selectionner la devise."
                                             required>
                                         <option value=""></option>
@@ -55,7 +55,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="inputPassword4">Nombre de Lit</label>
-                                    <select name="nombre_lit" id="nombre_lit" class="form-control"
+                                    <select name="chambre_nombre_lit" id="chambre_nombre_lit" class="form-control"
                                             data-parsley-required-message="prière de selectionner le nombre de lit."
                                             required>
                                         <option value=""></option>
@@ -70,19 +70,49 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">Localisation de la chambre</label>
-                                    <textarea name="localisation_chambre" class="form-control" id="" cols="10" rows="3"
-                                              data-parsley-required-message="prière de saisir la localisation ou emplacement de la chambre tout en détails" required
-                                    ></textarea>
+                                    <textarea name="chambre_localisation" class="form-control" id="" cols="10" rows="3"
+                                              data-parsley-required-message="prière de saisir la localisation ou emplacement de la chambre tout en détails"
+                                              required></textarea>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Description de la chambre</label>
+                                    <textarea name="chambre_description" class="form-control" id="" cols="10" rows="3"
+                                              data-parsley-required-message="prière de saisir la description de la chambre" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="inputPassword4">Etat de Disponibilité</label>
+                                    <select name="chambre_etat_disponibilite" id="chambre_currency" class="form-control"
+                                            data-parsley-required-message="prière de selectionner l'état de disponibilité."
+                                            required>
+                                        <option value=""></option>
+                                        <option value="disponible">Disponible</option>
+                                        <option value="Occupe">Occupé</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="inputPassword4">Catégorie</label>
+                                    <select name="chambre_categorie" id="chambre_categorie" class="form-control"
+                                            data-parsley-required-message="prière de selectionner la catégorie."
+                                            required>
+                                        <option value=""></option>
+                                        <option value="salle_deau">Avec salle d'eau</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Description de la chambre</label>
-                                    <textarea name="description_chambre" class="form-control" id="" cols="10" rows="3"
-                                              data-parsley-required-message="prière de saisir la description de la chambre" required
-                                    ></textarea>
+                                    <label for="inputPassword4">Intitulé Chambre</label>
+                                    <input type="text" class="form-control" name='chambre_intitule' id="chambre_intitule"
+                                           data-parsley-required-message="prière de saisir l'intitulé de la chambre."
+                                           placeholder=""
+                                           required>
                                 </div>
 
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <div>
