@@ -61,7 +61,16 @@ function get_user_ip(){
 function app_request(){
 
     extract($_REQUEST);
-    return @$request;
+
+    $route = '';
+
+    if (isset($request)){
+        $route = $request;
+    }elseif (isset($r)){
+        $route = $r;
+    }
+
+    return $route;
 
 }
 
