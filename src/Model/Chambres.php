@@ -15,6 +15,7 @@ class Chambres extends db
     public $chambre_uniqid;
     public $intitule_chambre;
     public $categorie;
+    public $chambre_currency;
     public $nombre_lit;
     public $cout;
 
@@ -38,6 +39,7 @@ class Chambres extends db
                     'categorie'         => $this->categorie,
                     'chambre_uniqid'         => $this->chambre_uniqid,
                     'intitule_chambre'         => $this->intitule_chambre,
+                    'chambre_currency'         => $this->chambre_currency,
                     'created_at'            => $this->getCreatedAt(),
                     'updated_at'            => $this->getUpdatedAt()));
 
@@ -57,9 +59,29 @@ class Chambres extends db
         return $query;
     }
 
+    public function getChambreWithOtherDetails(){
+
+        $query = $this->db->fetchAllAssociative('select * 
+                                                        from 
+                                                        `t_chambres`
+                                                        
+                                                        join `t_images` 
+                                                        on t_images.fk_chambre_uniqid = t_chambres.chambre_uniqid ;');
+
+        return $query;
+        
+    }
+
     public function getChambreById($id){
 
         $query = $this->db->fetchAllAssociative('SELECT * FROM t_chambres where id= ?',array($id));
+
+        return $query;
+    }
+
+    public function getChambreByUniqId($id){
+
+        $query = $this->db->fetchAssociative('SELECT * FROM t_chambres where chambre_uniqid= ?',array($id));
 
         return $query;
     }
