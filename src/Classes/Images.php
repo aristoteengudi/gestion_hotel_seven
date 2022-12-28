@@ -10,6 +10,7 @@ class Images extends db
     public $file_name;
     public $file;
     public $path;
+    public $fk_chambre_uniqid;
 
 
     public function InsertImage(){
@@ -27,8 +28,9 @@ class Images extends db
 
             $this->db->insert('t_images',
                 array(
-                    'images'        => $filename_extension,
-                    'path'           => $this->path,
+                    'images'                => $filename_extension,
+                    'path'                  => $this->path,
+                    'fk_chambre_uniqid'     => $this->fk_chambre_uniqid,
                     'created_at'            => $this->getCreatedAt(),
                     'updated_at'            => $this->getUpdatedAt()));
 
