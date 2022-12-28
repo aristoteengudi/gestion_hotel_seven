@@ -30,7 +30,7 @@ class Images extends db
                 array(
                     'images'                => $filename_extension,
                     'path'                  => $this->path,
-                    'fk_chambre_uniqid'     => $this->fk_chambre_uniqid,
+                    'fk_chambre_uniqid'     => $this->file_name,
                     'created_at'            => $this->getCreatedAt(),
                     'updated_at'            => $this->getUpdatedAt()));
 
