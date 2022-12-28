@@ -72,6 +72,32 @@ class Chambres extends db
         
     }
 
+
+    public function getChambreWithOtherDetailsByStatus($status,$start_date,$end_date){
+
+        $status = trim(filter_var($status,FILTER_SANITIZE_STRING));
+        $start_date = str_replace('/','-',trim(filter_var($start_date,FILTER_SANITIZE_STRING)));
+        $start_date = date('Y-m-d',strtotime($start_date));
+
+
+        $end_date = str_replace('/','-',trim(filter_var($end_date,FILTER_SANITIZE_STRING)));
+        $end_date = trim(filter_var($end_date,FILTER_SANITIZE_STRING));
+        $end_date = date('Y-m-d H:i:s',strtotime($end_date));;
+
+
+        $query = $this->db->fetchAllAssociative("select * 
+                                                        from 
+                                                        `t_chambres`
+                                                        
+                                                        join `t_images` 
+                                                        on t_images.fk_chambre_uniqid = t_chambres.chambre_uniqid 
+                                                        where t_chambres.created_at BETWEEN '{$start_date}' AND '{$end_date}'
+                                                        and t_chambres.etat_disponibilite = '{$status}';");
+
+        return $query;
+
+    }
+
     public function getChambreById($id){
 
         $query = $this->db->fetchAllAssociative('SELECT * FROM t_chambres where id= ?',array($id));
