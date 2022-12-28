@@ -25,66 +25,18 @@ $date_time = date('Y-m-d H:i:s');
 
 
 switch ($action){
-    case 'insert':
+    case 'get_chambre_details':
 
-        $message = array();
+        $chambre_id = \GuzzleHttp\json_decode(file_get_contents('php://input'),true);
+        $chambre_id = $chambre_id ['chambre_uniqid'];
 
-        $reservation = new \App\Model\Reservations();
+        $get_chambre = new \App\Model\Chambres();
 
-        $db->beginTransaction();
+        $data = array('data'=>$get_chambre->getChambreByUniqId($chambre_id));
+        $get_chambre = \GuzzleHttp\json_encode($data);
 
-        try {
+        echo $get_chambre;
 
-
-            $client_uniqid = time().'_cust';
-
-            $db->insert('t_clients',
-                array(
-                    'noms'=> $_POST['noms'],
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                    'telephone' => $_POST['telephone'],
-                    'uniqid' =>$client_uniqid
-                ));
-
-
-            $explode_data_from_chambre_name = explode(',',$_POST['chambre']);
-            $chambre = $explode_data_from_chambre_name[0];
-            $prix = $explode_data_from_chambre_name[1];
-
-            $reservation->nombre_personne = $_POST['nombre_personnes'];
-            $reservation->client_uniqid = $client_uniqid;
-            //$reservation->endate = '';
-            //$reservation->stardate = '';
-            $reservation->chambre_uniqid = $chambre;
-            $reservation->prix = $prix;
-            $reservation->createReservation();
-
-            http_response_code(200);
-            $message = array('response_code'=>200,
-                'message'=>"account created.");
-
-
-            $db->commit();
-
-
-        }catch (\Exception $exception){
-
-            $db->rollBack();
-            if (strpos($exception->getMessage(),'Integrity constraint violation')!==false){
-                http_response_code(200);
-                $message = array('response_code'=>250,
-                    'message'=>'account already exist. cuid ou phone number exist.');
-            }else{
-                http_response_code(500);
-                $message = array('response_code'=>500,
-                    'message'=>$exception->getMessage());
-            }
-        }
-
-
-
-        echo \GuzzleHttp\json_encode($message);
         break;
     default:
 
