@@ -29,10 +29,10 @@ switch ($action){
     case 'create':
 
         $chambre_uniqid = filter_var($_POST['chambre_uniqid'],FILTER_SANITIZE_NUMBER_INT);
-        $chambre_cout = filter_var($_POST['chambre_cout'],FILTER_SANITIZE_NUMBER_INT);
+        $chambre_cout = trim(filter_var($_POST['chambre_cout'],FILTER_SANITIZE_NUMBER_INT));
         $chambre_currency = filter_var($_POST['chambre_currency'],FILTER_SANITIZE_NUMBER_INT);
-        $numero_chambre = filter_var($_POST['numero_chambre'],FILTER_SANITIZE_NUMBER_INT);
-        $chambre_nombre_lit = filter_var($_POST['chambre_nombre_lit'],FILTER_SANITIZE_NUMBER_INT);
+        $numero_chambre = trim(filter_var($_POST['numero_chambre'],FILTER_SANITIZE_NUMBER_INT));
+        $chambre_nombre_lit = trim(filter_var($_POST['chambre_nombre_lit'],FILTER_SANITIZE_NUMBER_INT));
         $chambre_localisation = filter_var($_POST['chambre_localisation'],FILTER_SANITIZE_NUMBER_INT);
         $chambre_description = filter_var($_POST['chambre_description'],FILTER_SANITIZE_NUMBER_INT);
         //$chambre_intitule = filter_var($_POST['chambre_intitule'],FILTER_SANITIZE_STRING);
@@ -69,12 +69,15 @@ switch ($action){
             http_response_code(200);
             $_succes_message = array('response_code'=>200,'string'=>'success', 'message'=>"Chambre Ajouté avec Succés");
             $chambre->Save();
+
             $Images->InsertImage();
 
             redirectUrl('chambres',$_succes_message);
 
         }catch (\Exception $exception){
 
+            //print_r($exception->getMessage());
+            //die();
             if (strpos($exception->getMessage(),'Integrity constraint violation')!==false){
                 http_response_code(200);
                 $_error_message = array('response_code'=>250,'string'=>'error',
@@ -85,7 +88,7 @@ switch ($action){
                     'message'=>$exception->getMessage());
             }
 
-            refreshSpecific('chambres',$_error_message);
+            refreshSpecific('ajout_chambre',$_error_message);
         }
 
         break;
