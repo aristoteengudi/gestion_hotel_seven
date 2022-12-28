@@ -3,6 +3,16 @@
 
 {% block content %}
 
+    {% set flash = session.flash_message %}
+
+    {% if flash.string == 'error' %}
+        <div class="col-lg-12">
+            <div class="alert alert-danger bg-danger text-white" role="alert">
+                <strong>Oups!</strong> {{ flash.message }}.
+            </div>
+        </div>
+    {% endif %}
+
     {# TO DO #}
     <div class="row">
         <div id="accordion" class='container col-xl-12'>
@@ -138,6 +148,8 @@
             </div>
         </div>
     </div> <!-- end row -->
+
+    {{ unset_flash() }}
 
     <!-- end row -->
 {% endblock %}
