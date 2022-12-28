@@ -16,7 +16,7 @@ class Images extends db
     public function InsertImage(){
 
 
-        $Uploader = new \App\Classes\Uploader($this->file['chambre_photo'],$this->file_name,'/var/upload');
+        $Uploader = new \App\Classes\Uploader($this->file['chambre_photo'],$this->file_name,$this->path);
 
 
         $this->db->beginTransaction();
