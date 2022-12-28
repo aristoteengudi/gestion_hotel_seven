@@ -1,9 +1,13 @@
 <?php
 use Twig\Loader\FilesystemLoader;
+use App\Twig\ExtensionTwigFunctions;
+
 
 $loader = new \Twig\Loader\FilesystemLoader('./templates');
 $twig = new \Twig\Environment($loader, ['debug'=>true]);
 $twig->addExtension(new \Twig\Extension\DebugExtension());
+$twig->addExtension(new ExtensionTwigFunctions());
+
 
 function render($tpl, $params){
     global $twig;
