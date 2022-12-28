@@ -1,0 +1,55 @@
+    {% if filter_data|length > 0 %}
+        {% for value in filter_data %}
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active carousel-item-left">
+                                    <img class="d-block img-fluid" src="{{  value.path  }}/{{  value.images  }}" alt="1er slide">
+                                </div>
+                                <div class="carousel-item carousel-item-next carousel-item-left">
+                                    <img class="d-block img-fluid" src="{{  value.path  }}/{{  value.images  }}" alt="2e slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block img-fluid" src="{{  value.path  }}/{{  value.images  }}" alt="3e slide">
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-0 header-title">Chambre N° : {{  value.numero_chambre  }}</h4>
+                        <h4 class="mt-0 header-title">Coût : {{ value.cout }} $</h4>
+                        <p class="text-muted m-b-30">{{ value.description }}</p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        {% endfor %}
+    {% else %}
+        {% for value in list_chambre %}
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active carousel-item-left">
+                                    <img class="d-block img-fluid" src="{{  value.path  }}/{{  value.images  }}" alt="1er slide">
+                                </div>
+                                <div class="carousel-item carousel-item-next carousel-item-left">
+                                    <img class="d-block img-fluid" src="{{  value.path  }}/{{  value.images  }}" alt="2e slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block img-fluid" src="{{  value.path  }}/{{  value.images  }}" alt="3e slide">
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-0 header-title">Chambre N° : {{  value.numero_chambre  }}</h4>
+                        <h4 class="mt-0 header-title">Coût : {{ value.cout }} $</h4>
+                        <p class="text-muted m-b-30">{{ value.description }}</p>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        {% endfor %}
+    {% endif %}
