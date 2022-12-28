@@ -12,6 +12,7 @@
 /.idea/
 /.htaccess
 /var/
+/public/upload
 /.pydevproject
 /node_modules
 /package-lock.json
