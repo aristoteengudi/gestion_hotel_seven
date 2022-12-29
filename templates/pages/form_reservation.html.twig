@@ -3,6 +3,16 @@
 
 {% block content %}
 
+    {% set flash = session.flash_message %}
+
+    {% if flash.string == 'error' %}
+        <div class="col-lg-12">
+            <div class="alert alert-danger bg-danger text-white" role="alert">
+                <strong>Oups!</strong> {{ flash.message }}.
+            </div>
+        </div>
+    {% endif %}
+
     {# TO DO #}
     <div class="row">
         <div id="accordion" class='container col-xl-12'>
@@ -16,7 +26,7 @@
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="">
                     <div class="card-body">
-                        <form action="" id="update_customer" enctype="multipart/form-data" >
+                        <form action="./create_reservations?r=create" id="create_reservations" method="post" enctype="multipart/form-data" >
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputEmail4">Nom du client</label>
@@ -35,7 +45,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label for="inputPassword4">Mobile Phone</label>
-                                    <input type="text" class="form-control" name='cust_name' id="inputPassword4"
+                                    <input type="text" class="form-control" name='customer_mobile_phone' id="inputPassword4"
                                            data-parsley-type="digits"
                                            data-parsley-required-message="prière de saisir le numéro du téléphone du client."
                                            data-parsley-type-message="prière de saisir une valeur numérique"
@@ -46,7 +56,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputEmail4">Genre</label>
-                                    <select name="customer_genre" class="form-control select2" id="customer_genre"
+                                    <select name="customer_genre" class="form-control" id="customer_genre"
                                             data-parsley-required-message="prière de sélectionner le genre"
                                             required>
                                         <option value=""></option>
@@ -57,7 +67,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label for="inputEmail4">Nombre d'occupants</label>
-                                    <select class="form-control select2"
+                                    <select class="form-control"
                                             data-parsley-required-message="prière de sélectionner le nombre d'occupant" name="customer_occupant" required>
                                         <option value=""></option>
                                         {% for i in 1..10 %}
@@ -68,12 +78,15 @@
 
                             <div class="form-group col-md-4">
                                     <label for="inputEmail4">Chambre</label>
-                                    <select class="form-control select2"
-                                            data-parsley-required-message="prière de sélectionner la chambre" name="customer_room" required>
+                                    <select class="form-control customer_room"
+                                            data-parsley-required-message="prière de sélectionner la chambre"
+                                            name="customer_room"
+                                            id="customer_room"
+                                            onchange="getPriceAndOtherDetails()"
+                                            required>
                                         <option value=""></option>
                                         {% for value in chambre_disponible %}
-                                            <option value="{{ value.numero_chambre }},{{ value.prix }}" title="{{ value.description }}">
-                                                {{ value.intitule }} &nbsp;|| {{ value.numero_chambre }} || Prix : {{ value.prix }} USD</option>
+                                            <option value="{{ value.chambre_uniqid }}" title="{{ value.description }}" >N° {{ value.numero_chambre }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -83,7 +96,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="inputPassword4">Type Pièce identité</label>
                                     <label for="inputEmail4">Province</label>
-                                    <select class="form-control select2" name="cust_type_piece_identite"
+                                    <select class="form-control" name="customer_type_piece_identite"
                                             data-parsley-required-message="prière de sélectionner le type de pièce d'identité" required>
                                         <option value=""></option>
                                         <option value="1">Carte Identite</option>
@@ -103,6 +116,11 @@
                                     <input type="text" class="form-control" id="" name='customer_numero_piece'
                                            data-parsley-required-message="prière de saisir le numéro de la pièce"
                                            required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Coût et Autres Détails</label>
+
+                                    <textarea name="customer_autre_details" class="form-control chambre_cout" readonly id="chambre_cout" cols="10" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -155,6 +173,8 @@
         </div>
     </div> <!-- end row -->
 
+    {{ unset_flash() }}
+
     <!-- end row -->
 {% endblock %}
 
@@ -182,6 +202,11 @@
     <!-- sweet alert-->
     <script src="public/assets/js/sweetalert.min.js"></script>
     <!-- -->
+
+    <script src="public/plugins/select2/js/select2.min.js"></script>
+    <script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="public/assets/pages/form-advanced.init.js"></script>
 
     <script>
         function processForm() {
@@ -243,6 +268,32 @@
             let pattern = /^\d+$/;
             console.log(pattern.test(value.value));
         }
+
+        function getPriceAndOtherDetails(){
+
+            let getUniqiD = $('.customer_room').val();
+
+            let post = {
+                chambre_uniqid: getUniqiD,
+            };
+
+
+            let response = fetch('./reservations?r=get_chambre_details',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(post)
+            }).then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    $('#chambre_cout').val('Coût :' +result.data.cout+' '+result.data.chambre_currency);
+                    //view.find('.modal-body').html(result.message);
+                    //view.modal('show');
+
+                });
+        }
+
         LoadParsleyAndSlect2();
         processForm();
     </script>
