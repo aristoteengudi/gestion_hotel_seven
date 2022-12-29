@@ -112,8 +112,8 @@ class Chambres extends db
         return $query;
     }
 
-    public function getChambreByNummber($number){
-        $query = $this->db->fetchAllAssociative('SELECT * FROM t_chambres where numero_chambre = ?',array($number));
+    public function getChambreByNummber($numberOrUniqId){
+        $query = $this->db->fetchAssociative('SELECT * FROM t_chambres where numero_chambre = ? or chambre_uniqid = ?',array($numberOrUniqId,$numberOrUniqId));
 
         return $query;
     }
