@@ -16,7 +16,7 @@ class Reservations extends db
     public $times;
     public $reservation_uid;
     public $chambre_uniqid;
-    public $prix;
+    public $cout;
     public $status_reservation;
     public $client_uniqid;
     public $nombre_personne;
@@ -36,7 +36,7 @@ class Reservations extends db
                     //'times' => '',
                     'reservation_uid'=> $this->getReservationUid(),
                     'chambre_uniqid'=> $this->chambre_uniqid,
-                    'prix'=> $this->prix,
+                    'cout'=> $this->cout,
                     'status_reservation'=> 'actif',
                     'client_uniqid'=> $this->client_uniqid,
                     'nombre_personne'=> $this->nombre_personne,
@@ -47,7 +47,7 @@ class Reservations extends db
 
 
             $this->db->update('t_chambres',
-                array('disponibilite'=>'indisponible'),
+                array('etat_disponibilite'=>'indisponible'),
                 array('numero_chambre'=>$this->chambre_uniqid)); // update chambre state
 
             $this->db->commit();
@@ -88,7 +88,7 @@ class Reservations extends db
         return $query;
     }
     private function getReservationUid(){ return Security::randomizer_integer(10,979);}
-    private function getCreatedDate(){ return date('Y-mc-d H:i:s');}
+    private function getCreatedDate(){ return date('Y-m-d H:i:s');}
 
     private function getUpdatedDate(){ return date('Y-m-d H:i:s');}
 
