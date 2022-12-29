@@ -28,14 +28,13 @@ $date_time = date('Y-m-d H:i:s');
 switch ($action){
     case 'create':
 
-        $chambre_uniqid = filter_var($_POST['chambre_uniqid'],FILTER_SANITIZE_NUMBER_INT);
+        $chambre_uniqid = filter_var($_POST['chambre_uniqid'],FILTER_SANITIZE_STRING);
         $chambre_cout = trim(filter_var($_POST['chambre_cout'],FILTER_SANITIZE_NUMBER_INT));
-        $chambre_currency = filter_var($_POST['chambre_currency'],FILTER_SANITIZE_NUMBER_INT);
-        $numero_chambre = trim(filter_var($_POST['numero_chambre'],FILTER_SANITIZE_NUMBER_INT));
+        $chambre_currency = filter_var($_POST['chambre_currency'],FILTER_SANITIZE_STRING);
+        $numero_chambre = trim(filter_var($_POST['numero_chambre'],FILTER_SANITIZE_STRING));
         $chambre_nombre_lit = trim(filter_var($_POST['chambre_nombre_lit'],FILTER_SANITIZE_NUMBER_INT));
-        $chambre_localisation = filter_var($_POST['chambre_localisation'],FILTER_SANITIZE_NUMBER_INT);
-        $chambre_description = filter_var($_POST['chambre_description'],FILTER_SANITIZE_NUMBER_INT);
-        //$chambre_intitule = filter_var($_POST['chambre_intitule'],FILTER_SANITIZE_STRING);
+        $chambre_localisation = filter_var($_POST['chambre_localisation'],FILTER_SANITIZE_STRING);
+        $chambre_description = filter_var($_POST['chambre_description'],FILTER_SANITIZE_STRING);
         $chambre_categorie = filter_var($_POST['chambre_categorie'],FILTER_SANITIZE_STRING);
         $chambre_etat_disponibilite = filter_var($_POST['chambre_etat_disponibilite'],FILTER_SANITIZE_STRING);
         $chambre_intitule = filter_var($_POST['chambre_intitule'],FILTER_SANITIZE_STRING);
@@ -53,12 +52,12 @@ switch ($action){
         $chambre->chambre_uniqid = $chambre_uniqid;
 
 
-
-        //print_r($_FILES);
+        //print_r($chambre_currency);
         //die();
         $Images = new \App\Classes\Images();
         $Images->path = 'public/upload';
-        $Images->file = $_FILES;
+        $Images->file = $_FILES['chambre_photo'];
+        $Images->type_image = '';
         $Images->file_name = $chambre_uniqid;
 
         $_succes_message = array();
