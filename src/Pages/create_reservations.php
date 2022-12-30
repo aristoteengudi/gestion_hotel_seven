@@ -16,7 +16,9 @@ if (!in_array('admin',$_SESSION['roles'])){
 
 $breadcrumb = [
     [ 'path' => './', 'name' => 'Dashboard'],
-    [ 'path' => './users', 'name' => 'Réservations']
+    [ 'path' => './reservations', 'name' => 'Réservations'],
+    [ 'sub_path' => './create_reservations', 'name' => 'Création Réservation'],
+
 ];
 $params = ['page_title'=>'Réservations', 'breadcrumb' => $breadcrumb];
 
@@ -101,7 +103,7 @@ switch ($action){
 
             http_response_code(200);
 
-            $_succes_message = array('response_code'=>200,'string'=>'success', 'message'=>"Chambre Réservé avec Success");
+            $_succes_message = array('response_code'=>200,'string'=>'success', 'message'=>"Chambre Réserver avec Success");
 
             redirectUrl('reservations',$_succes_message);
 
