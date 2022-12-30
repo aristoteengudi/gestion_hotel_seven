@@ -2,11 +2,22 @@
 {% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
+    {% set flash = session.flash_message %}
+
+    {% if flash.string == 'success' %}
+        <div class="col-lg-12">
+            <div class="alert alert-success bg-success text-white" role="alert">
+                <strong>Well done!</strong> {{ flash.message }}.
+            </div>
+        </div>
+    {% endif %}
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="">
+                    <form action="reservations">
+                        <input type="hidden" name="r" value="filter">
                         <div class="form-row">
                             <div class="input-daterange input-group" id="date-range">
                                 <div class="col-md-3 mb-3">
@@ -15,7 +26,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputStart"><i class="mdi mdi-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="validationTooltipUsername" placeholder="mm/dd/yyyy" required>
+                                        <input type="text" class="form-control" id="" name="start_date" value="{{ start_date }}" placeholder="dd/mm/yyyy" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-3">
@@ -24,52 +35,72 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id=""><i class="mdi mdi-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="inputEnd" placeholder="mm/dd/yyyy" required>
+                                        <input type="text" class="form-control" id="" name="end_date" value="{{ end_date }}" placeholder="dd/mm/yyyy" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 mb-3">
+                                    <label for="inputEnd">Status</label>
+                                    <div class="input-group">
+                                        <select class="form-control" name="room_status" id="" required>
+                                            <option value=""></option>
+                                            <option value="disponible">Disponible</option>
+                                            <option value="occupe">Occupé</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 mb-3">
                                     <label for="inputEnd">&nbsp;</label>
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary waves-effect">Filter <i class="fas fa-filter"></i></button>
+                                        <button class="btn btn-outline-secondary waves-effect" type="submit">Filtrer <i class="fas fa-filter"></i></button>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                    </div>
+                    </form>
+
                     <div class="float-right d-none d-md-block">
                         <div class="dropdown">
-                            <button type="button" class="btn btn-outline-primary waves-effect waves-light"
-                                    data-toggle="modal" data-target="#myModal">
+                            <a href="./create_reservations" type="button" class="btn btn-outline-primary waves-effect waves-light">
                                 <i class="ti-bookmark mr-2"></i> Réserver
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <h4 class="mt-0 header-title"></h4>
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr>
-                            <th># id</th>
+                            <th>#reservation_id</th>
+                            <th>customer</th>
                             <th>numéro_chambre</th>
-                            <th>prix</th>
-                            <th>nombre de lit</th>
-                            <th>localisation chambre</th>
-                            <th>disponibilité</th>
-                            <th>date création</th>
-                            <th>date mise à jours</th>
+                            <th>cout</th>
+                            <th>currency</th>
+                            <th>telephone</th>
+                            <th>nombre_occupant</th>
+                            <th>status_reservation</th>
+                            <th>date_debut_reservation</th>
+                            <th>date_fin_reservation</th>
+                            <th>date_creation_reservation</th>
+                            <th>date_maj</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        {% for value in list_chambre %}
+                        {% for value in reservations %}
                             <tr>
-                                <td>{{ value.id }}</td>
+                                <td>{{ value.reservation_id }}</td>
+                                <td>{{ value.prenom }} {{ value.noms }}</td>
                                 <td>{{ value.numero_chambre }}</td>
-                                <td>{{ value.prix }}</td>
-                                <td>{{ value.nombre_lit }}</td>
-                                <td>{{ value.localisation_chambre }}</td>
-                                <td>{{ value.disponibilite }}</td>
+                                <td>{{ value.cout }}</td>
+                                <td>{{ value.chambre_currency }}</td>
+                                <td>{{ value.telephone }}</td>
+                                <td>{{ value.nombre_personne }}</td>
+                                <td>{{ value.status_reservation }}</td>
+                                <td>{{ value.stardate }}</td>
+                                <td>{{ value.endate }}</td>
                                 <td>{{ value.created_at }}</td>
                                 <td>{{ value.updated_at }}</td>
                             </tr>
@@ -81,98 +112,7 @@
         </div> <!-- end col -->
     </div> <!-- end row -->
 
-    {# modal#}
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form action="" id="submit_form" enctype="multipart/form-data" class="repeater">
-                    <div class="modal-header" style="background-color: #343a40">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Réserver une Chambre</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-4 col-form-label">Noms du Client</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" name="noms" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-4 col-form-label">Numéro Téléphone</label>
-                            <div class="col-sm-4">
-                                <input type="tel" class="form-control" name="telephone" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Nombre de Personnes</label>
-                            <div class="col-sm-5">
-                                <select class="form-control" name="nombre_personnes" required>
-                                    <option>..</option>
-                                    {% for i in 1..10 %}
-                                        <option value="{{ i }}" title="{{ i }}">{{ i }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Chambre</label>
-                            <div class="col-sm-5">
-                                <select class="form-control" name="chambre">
-                                    <option>...</option>
-                                    {% for value in chambre_disponible %}
-                                        <option value="{{ value.numero_chambre }},{{ value.prix }}" title="{{ value.description }}">
-                                            {{ value.intitule }} &nbsp;|| {{ value.numero_chambre }} || Prix : {{ value.prix }} USD</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-warning waves-effect"><i class="ti-reload mr-2"></i>Réinitialiser</button>
-                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><i class="ti-close mr-2"></i>Fermer</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light" ><i class="ti-save mr-2"></i>Réserver</button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-
-    <script>
-        function submitForm() {
-
-            submit_form.onsubmit  = async (e) => {
-
-                e.preventDefault();
-
-                let response = await fetch('./reservations?request=insert', {
-                    method: 'POST',
-                    body: new FormData(submit_form)
-                });
-
-                let result = await response.json();
-
-                if (result.response_code==200){
-                    swal({
-                        title: "Reussi",
-                        text: result.message,
-                        icon: "success",
-                    });
-                    setTimeout(function(){
-                        location.reload();
-                    },2000);
-
-                    console.log(result.message);
-
-                }else {
-                    swal("Erreur survenus", result.message, "error");
-                }
-            };
-        }
-
-
-
-        submitForm();
-    </script>
+    {{ unset_flash() }}
 
 {% endblock %}
 
@@ -204,6 +144,17 @@
     <script src="public/plugins/datatables/dataTables.responsive.min.js"></script>
     <script src="public/plugins/datatables/responsive.bootstrap4.min.js"></script>
 
+
     <!-- Datatable init js -->
     <script src="public/assets/pages/datatables.init.js"></script>
+
+
+    <script src="public/plugins/select2/js/select2.min.js"></script>
+    <script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="public/assets/pages/form-advanced.init.js"></script>
+
+
+    <script src="public/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="public/assets/pages/lightbox.js"></script>
 {% endblock %}
