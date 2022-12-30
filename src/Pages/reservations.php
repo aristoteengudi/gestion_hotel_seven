@@ -35,15 +35,15 @@ switch ($action){
 
         $chambre = new \App\Model\Chambres();
 
-        $start_date = $_GET['start_date'];
-        $end_date = $_GET['end_date'].' 23:59:59';
-        $room_status = $_GET['room_status'];
+        $start_date     = $_GET['start_date'];
+        $end_date       = $_GET['end_date'].' 23:59:59';
+        $room_status    = $_GET['room_status'];
 
         $params ['filter_data'] = $chambre->getChambreWithOtherDetailsByStatus($room_status,$start_date,$end_date);
 
 
-        $params ['start_date'] = $_GET['start_date'];
-        $params ['end_date'] = $_GET['end_date'];
+        $params ['start_date']  = $_GET['start_date'];
+        $params ['end_date']    = $_GET['end_date'];
         $params ['room_status'] = $_GET['room_status'];
 
 
