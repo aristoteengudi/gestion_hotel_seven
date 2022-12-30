@@ -16,9 +16,14 @@ if (!in_array('admin',$_SESSION['roles'])){
 
 $breadcrumb = [
     [ 'path' => './', 'name' => 'Dashboard'],
-    [ 'path' => './users', 'name' => 'Réservations']
+    [ 'path' => './reservations', 'name' => 'Réservations'],
 ];
+
+
 $params = ['page_title'=>'Réservations', 'breadcrumb' => $breadcrumb];
+
+
+
 
 $action = app_request();
 $date_time = date('Y-m-d H:i:s');
@@ -40,9 +45,9 @@ switch ($action){
         break;
     default:
 
-        $chambre = new \App\Model\Chambres();
+        $chambres = new \App\Model\Reservations();
 
-        $params ['chambre_disponible'] = $chambre->getChambreDisponible();
+        $params ['reservations'] = $chambres->getReservations();
 
         render('reservations.html.twig', $params);
 }
