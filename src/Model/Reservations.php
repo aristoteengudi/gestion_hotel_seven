@@ -72,7 +72,7 @@ class Reservations extends db
 
     public function getCurrentMonthReservationAmount(){
 
-        $sql  = "SELECT  SUM(`prix`) AS montant_total_reservation_mensuel
+        $sql  = "SELECT  SUM(`cout`) AS montant_total_reservation_mensuel
                     FROM `t_reservations` WHERE MONTH(`created_at`) = MONTH(NOW());";
 
         $query = $this->db->fetchAssociative($sql);
@@ -89,6 +89,25 @@ class Reservations extends db
     }
     private function getReservationUid(){ return Security::randomizer_integer(10,979);}
     private function getCreatedDate(){ return date('Y-m-d H:i:s');}
+
+
+    public function getReservations(){
+
+        $query = $this->db->fetchAllAssociative("SELECT  r.reservation_id,c.noms,c.prenom,c.telephone,c.genre,c.client_uniqid,r.stardate,r.endate,
+                                                        r.times,r.chambre_uniqid,r.status_reservation,r.nombre_personne,ch.chambre_currency,
+                                                        r.created_at,r.updated_at, ch.numero_chambre,ch.localisation_chambre,
+                                                        r.cout
+                                                        
+                                                        FROM
+                                                        
+                                                        `t_clients` c JOIN `t_reservations` r 
+                                                        
+                                                        ON r.client_uniqid = c.client_uniqid
+                                                        JOIN t_chambres ch
+                                                        ON r.chambre_uniqid = ch.chambre_uniqid");
+
+        return $query;
+    }
 
     private function getUpdatedDate(){ return date('Y-m-d H:i:s');}
 
