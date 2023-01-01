@@ -48,7 +48,7 @@ class Reservations extends db
 
             $this->db->update('t_chambres',
                 array('etat_disponibilite'=>'indisponible'),
-                array('numero_chambre'=>$this->chambre_uniqid)); // update chambre state
+                array('chambre_uniqid'=>$this->chambre_uniqid)); // update chambre state
 
             $this->db->commit();
 
@@ -72,10 +72,14 @@ class Reservations extends db
 
     public function getCurrentMonthReservationAmount(){
 
-        $sql  = "SELECT  SUM(`cout`) AS montant_total_reservation_mensuel
-                    FROM `t_reservations` WHERE MONTH(`created_at`) = MONTH(NOW());";
+        $sql  = "SELECT  SUM(r.cout) AS montant_total_reservation_mensuel,ch.chambre_currency
+                    FROM 
+                    `t_reservations` r JOIN t_chambres ch
+                    ON r.chambre_uniqid = ch.chambre_uniqid
+                    WHERE MONTH(r.created_at) = MONTH(NOW())
+                    GROUP BY chambre_currency";
 
-        $query = $this->db->fetchAssociative($sql);
+        $query = $this->db->fetchAllAssociative($sql);
 
         return $query;
 
