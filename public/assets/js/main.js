@@ -126,5 +126,5 @@
 function ($) {
     "use strict";
     $.MainApp.init();
-    $('body').addClass('enlarged');
+    //$('body').addClass('enlarged');
 }(window.jQuery);
