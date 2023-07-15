@@ -6,14 +6,14 @@
     <br>
     <!-- end row -->
     <div class="row">
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-6 col-md-6">
             <div class="card mini-stat bg-primary text-white">
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4">
                             <img src="public/assets/images/services-icon/01.png" alt="" >
                         </div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">RESERVATIONS</h5>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">CHAMBRES RESERVER</h5>
                         <h4 class="font-500">{{ count_reservation.count_total_reservation }}<i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                         <div class="mini-stat-label bg-success">
                             <p class="mb-0"></p>
@@ -29,14 +29,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-6 col-md-6">
             <div class="card mini-stat bg-primary text-white">
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4">
                             <img src="public/assets/images/services-icon/02.png" alt="" >
                         </div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Revenue / Mois</h5>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">RECETTES / Mois</h5>
                         {% for value in curent_amount_reservation_month %}
                             {% if value.chambre_currency == 'USD' %}
                             <h5 class="font-500">
@@ -64,7 +64,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+
+    </div>
+    <div class="row">
+
+        <div class="col-xl-6 col-md-6">
             <div class="card mini-stat bg-primary text-white">
                 <div class="card-body">
                     <div class="mb-4">
@@ -87,7 +91,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+
+        <div class="col-xl-6 col-md-6">
             <div class="card mini-stat bg-primary text-white">
                 <div class="card-body">
                     <div class="mb-4">
@@ -111,10 +116,62 @@
             </div>
         </div>
     </div>
-    <!-- end row -->
     <div class="row">
-        {% include('chart/facturation-pie.twig') %}
-        {% include('chart/subscription-histogram.twig') %}
+
+        <div class="col-xl-6 col-md-6">
+            <div class="card mini-stat bg-primary text-white">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="float-left mini-stat-img mr-4">
+                            <img src="public/assets/images/services-icon/03.png" alt="" >
+                        </div>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">TOTAL CHAMBRE <br></h5>
+                        <h4 class="font-500">{{ count_clients.count_total_clients }} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <div class="mini-stat-label bg-info">
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
+                        </div>
+
+                        <p class="text-white-50 mb-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6">
+            <div class="card mini-stat bg-primary text-white">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="float-left mini-stat-img mr-4">
+                            <img src="public/assets/images/services-icon/04.png" alt="" >
+                        </div>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Chambre Dispo</h5>
+                        <h4 class="font-500">{{ count_total_chambre_dispo.count_total_chambre_disponible}}<i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <div class="mini-stat-label bg-warning">
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="float-right">
+                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
+                        </div>
+
+                        <p class="text-white-50 mb-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row -->
+
+    <div class="row">
+{#        {% include('chart/facturation-pie.twig') %}#}
+{#        {% include('chart/subscription-histogram.twig') %}#}
 
     </div>
 

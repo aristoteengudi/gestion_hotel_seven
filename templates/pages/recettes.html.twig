@@ -20,35 +20,28 @@
                         <input type="hidden" name="r" value="filter">
                         <div class="form-row">
                             <div class="input-daterange input-group" id="date-range">
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputStart">Du</label>
+                                <div class="col-md-2 mb-2">
+                                    <label for="month">Mois</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputStart"><i class="mdi mdi-calendar"></i></span>
+                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="month">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="" name="start_date" value="{{ start_date }}" placeholder="dd/mm/yyyy" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputEnd">Au</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id=""><i class="mdi mdi-calendar"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="" name="end_date" value="{{ end_date }}" placeholder="dd/mm/yyyy" required>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputEnd">Status</label>
+{#
+                                <div class="col-md-2 mb-2">
+                                    <label for="inputEnd">Type Recettes</label>
                                     <div class="input-group">
                                         <select class="form-control" name="room_status" id="" required>
                                             <option value=""></option>
-                                            <option value="actif">Actif</option>
-                                            <option value="inactif">Inactif</option>
+                                            <option value="daily">Journalière</option>
+                                            <option value="monthly">Mensuel</option>
                                         </select>
                                     </div>
                                 </div>
+#}
 
 
                                 <div class="col-md-3 mb-3">
@@ -61,15 +54,8 @@
 
                         </div>
                     </form>
-                    <div class="float-right d-none d-md-block">
-                        <div class="dropdown">
-                            <a href="./create_reservations" type="button" class="btn btn-outline-primary waves-effect waves-light">
-                                <i class="ti-bookmark mr-2"></i> Réserver
-                            </a>
-                        </div>
-                    </div>
                     <h4 class="mt-0 header-title"></h4>
-                    {% include 'partial/reservation_view.twig' %}
+                    {% include 'partial/recettes_view.twig' %}
                 </div>
             </div>
         </div> <!-- end col -->
