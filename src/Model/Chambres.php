@@ -119,7 +119,7 @@ class Chambres extends db
     }
 
     public function getChambreDisponible(){
-        $query = $this->db->fetchAllAssociative("SELECT * FROM t_chambres where etat_disponibilite = 'disponible' ");
+        $query = $this->db->fetchAllAssociative("SELECT * FROM t_chambres where etat_disponibilite = 'disponible'");
 
         return $query;
     }
