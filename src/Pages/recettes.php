@@ -23,8 +23,6 @@ $breadcrumb = [
 $params = ['page_title'=>'Recettes', 'breadcrumb' => $breadcrumb];
 
 
-
-
 $action = app_request();
 $date_time = date('Y-m-d H:i:s');
 
