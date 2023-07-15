@@ -11,3 +11,15 @@ STATUS_ACCOUNT_ACTIVED : 10
 DEFAULT_ACCOUNT_STATUS  : 100
 MESSAGE_ACCOUNT_DEACTIVED : Merci de signaler à l'administrateur, car votre compte n'est pas encore activé.
 AUTHENTIFICATION_SUCCESS : success
+
+
+
+TEST_USER:
+    100 :
+        username : citadin
+        name : Citadin
+        first_name : Mpibwa
+        phone_number : 081
+        email : citadin@hotel-seven.com
+        status : 10
+        password_hash: congo@@2022
