@@ -274,6 +274,12 @@ switch ($action){
         break;
     default:
 
-        $params['data'] = '';
+        $reservation = new \App\Model\Reservations();
+        $count_chambre = new \App\Model\Chambres();
+
+        $params ['count_total_chambre_dispo'] = $count_chambre->getTotalChambreDisponible();
+        $params ['count_reservation'] = $reservation->getTotalReservation();
+        $params ['curent_amount_reservation_month'] = $reservation->getCurrentMonthReservationAmount();
+        $params ['count_clients'] = $reservation->getTotalClient();
         render('index.html.twig', $params);
 }

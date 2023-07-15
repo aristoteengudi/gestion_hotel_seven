@@ -16,11 +16,11 @@ if (!in_array('admin',$_SESSION['roles'])){
 
 $breadcrumb = [
     [ 'path' => './', 'name' => 'Dashboard'],
-    [ 'path' => './reservations', 'name' => 'Réservations'],
+    [ 'path' => './reservations', 'name' => 'Recettes'],
 ];
 
 
-$params = ['page_title'=>'Réservations', 'breadcrumb' => $breadcrumb];
+$params = ['page_title'=>'Recettes', 'breadcrumb' => $breadcrumb];
 
 
 
@@ -67,7 +67,7 @@ switch ($action){
 
         $chambres = new \App\Model\Reservations();
 
-        $params ['reservations'] = $chambres->getReservations();
+        $params ['recettes'] = $chambres->getReservations();
 
-        render('reservations.html.twig', $params);
+        render('recettes.html.twig', $params);
 }
