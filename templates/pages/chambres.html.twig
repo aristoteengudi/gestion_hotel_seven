@@ -19,19 +19,19 @@
                     {% include 'partial/filter_date.html.twig' %}
                     <div class="float-right d-none d-md-block">
                         <div class="dropdown">
-                            <a href="./ajout_chambre" class="btn btn-outline-primary waves-effect waves-light">
-                                <i class="ti-upload mr-2"></i> Nouveau
+                            <a href="./create_reservations" type="button" class="btn btn-outline-primary waves-effect waves-light">
+                                <i class="ti-bookmark mr-2"></i> Réserver
                             </a>
                         </div>
                     </div>
+                    <h4 class="mt-0 header-title"></h4>
+                    {% include 'partial/chambre_view.twig' %}
                 </div>
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
 
-    <div class="row">
-        {% include 'partial/chambre_view.twig' %}
-    </div>
+
 
 
 
