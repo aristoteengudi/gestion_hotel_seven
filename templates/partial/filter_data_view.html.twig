@@ -1,0 +1,70 @@
+<div class="data" id="data">
+    <div class="mb-2 clearfix">
+        {% set p = ['DoExport=zip'] %}
+        {% for key,value in http_params() %}
+            {%  if key != 'DoExport'  %}
+                {% set p= p|merge([key ~ '=' ~ value]) %}
+            {% endif %}
+        {% endfor %}
+        {% set params =  p|join('&') %}
+        <a href="{{ path('filter?' ~ params) }}" class="btn btn-primary float-right">
+            <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z" clip-rule="evenodd"/>
+            </svg> Export File
+        </a>
+        {% set p = ['DoExport=excel'] %}
+        {% for key,value in http_params() %}
+            {%  if key != 'DoExport'  %}
+                {% set p= p|merge([key ~ '=' ~ value]) %}
+            {% endif %}
+        {% endfor %}
+        {% set params =  p|join('&') %}
+        <a href="{{ path('filter?' ~ params) }}" class="btn btn-primary float-left">
+            <svg class="bi bi-download" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M.5 8a.5.5 0 01.5.5V12a1 1 0 001 1h12a1 1 0 001-1V8.5a.5.5 0 011 0V12a2 2 0 01-2 2H2a2 2 0 01-2-2V8.5A.5.5 0 01.5 8z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M5 7.5a.5.5 0 01.707 0L8 9.793 10.293 7.5a.5.5 0 11.707.707l-2.646 2.647a.5.5 0 01-.708 0L5 8.207A.5.5 0 015 7.5z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 018 1z" clip-rule="evenodd"/>
+            </svg> Export Excel
+        </a>
+    </div>
+    <table id="updated_customer" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead>
+        <tr>
+            <th>#id</th>
+            <th>cust_msisdn</th>
+            <th>cust_name</th>
+            <th>cust_firstname</th>
+            <th>cust_lastname</th>
+            <th>cust_genre</th>
+            <th>cust_civilite</th>
+            <th>cust_province</th>
+            <th>cust_numero_piece</th>
+            <th>fichier</th>
+            <th>date_création</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% set i=0 %}
+        {% for value in data %}
+            {% set i = i+1%}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ value.cust_msisdn }}</td>
+                <td>{{ value.cust_name }}</td>
+                <td>{{ value.cust_firstname }}</td>
+                <td>{{ value.cust_lastname }}</td>
+                <td>{{ value.cust_genre }}</td>
+                <td>{{ value.cust_civilite }}</td>
+                <td>{{ value.cust_province }}</td>
+                <td>{{ value.cust_numero_piece }}</td>
+                <td><a href="{{ value.cust_photo_piece_identite_path }}" class="iframe-popup">CarteID</a><br>
+                    <a href="{{ value.cust_fiche_identification_path }}" class="iframe-popup">FicheID</a></td>
+                <td>{{ value.created_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

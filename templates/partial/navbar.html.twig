@@ -57,7 +57,7 @@
                 <li class="menu-title">Main</li>
                 <li>
                     <a href="./" class="waves-effect">
-                        <i class="ti-home"></i> <span> Home </span>
+                        <i class="ti-home"></i> <span> Dashboard </span>
                     </a>
                 </li>
 
@@ -65,8 +65,8 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class=" ti-user "></i><span> Clients <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                     <ul class="submenu">
                         <li><a href="./reservations">Réservation</a></li>
-                        <li><a href="./chambres">Nos Chambres</a></li>
-                        <li><a href="./clients">Nos Clients</a></li>
+                        <li><a href="./chambres">Chambres</a></li>
+                        <li><a href="./clients">Clients</a></li>
                     </ul>
                 </li>
 
@@ -82,12 +82,17 @@
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class=" ti-bar-chart-alt "></i><span> Rapport <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="#">Réservation</a></li>
+                            <li><a href="./recettes">Recettes</a></li>
                             <li><a href="#">Charges (Dépense et Autres)</a></li>
                             <li><a href="#">Autres Charges</a></li>
                         </ul>
                     </li>
 
+                <li>
+                    <a href="./statistique" class="waves-effect">
+                        <i class="ti-pie-chart"></i> <span> Statistiques </span>
+                    </a>
+                </li>
 {#                {% endif %}#}
 
 {#                {% if 'admin' in session.roles %}#}
