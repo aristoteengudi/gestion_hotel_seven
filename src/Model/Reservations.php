@@ -27,6 +27,7 @@ class Reservations extends db
 
         $this->db->beginTransaction();
 
+
         try{
 
             $this->db->insert('t_reservations',
@@ -91,7 +92,17 @@ class Reservations extends db
 
         return $query;
     }
-    private function getReservationUid(){ return Security::randomizer_integer(10,979);}
+    private function setReservationUid(){ return Security::randomizer_integer(10,979);}
+
+    /**
+     * @return mixed
+     */
+    public function getReservationUid()
+    {
+        return $this->reservation_uid = $this->setReservationUid();
+    }
+
+
     private function getCreatedDate(){ return date('Y-m-d H:i:s');}
 
 
