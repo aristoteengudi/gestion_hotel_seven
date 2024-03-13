@@ -65,10 +65,18 @@ switch ($action){
         break;
     default:
 
+        $start_date         = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+        $end_date           = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+        $_status            = isset($_GET['_status']) ? $_GET['_status'] : null;
+
+        $params ['start_date']  = $start_date;
+        $params ['end_date']    = $end_date;
+        $params ['_status']    = $_status;
+
         $reservation = new \App\Model\Reservations();
         $chambres = new \App\Model\Chambres();
 
-        $params ['reservations'] = $reservation->getReservations();
+        $params ['reservations'] = $reservation->getReservations($start_date,$end_date,$_status);
         $params ['count_total_chambre_dispo'] = $chambres->getTotalChambreDisponible();
 
 
