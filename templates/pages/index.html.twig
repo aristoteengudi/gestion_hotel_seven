@@ -100,7 +100,7 @@
                             <img src="public/assets/images/services-icon/04.png" alt="" >
                         </div>
                         <h5 class="font-16 text-uppercase mt-0 text-white-50">Chambre Dispo</h5>
-                        <h4 class="font-500">{{ count_total_chambre_dispo.count_total_chambre_disponible}}<i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <h4 class="font-500">{{ total_chambre_dispo.count_total_chambre_disponible}}<i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                         <div class="mini-stat-label bg-warning">
                             <p class="mb-0"></p>
                         </div>
@@ -126,7 +126,7 @@
                             <img src="public/assets/images/services-icon/03.png" alt="" >
                         </div>
                         <h5 class="font-16 text-uppercase mt-0 text-white-50">TOTAL CHAMBRE <br></h5>
-                        <h4 class="font-500">{{ count_clients.count_total_clients }} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <h4 class="font-500">{{ total_chambre.count_total_chambre }} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                         <div class="mini-stat-label bg-info">
                             <p class="mb-0"></p>
                         </div>
@@ -142,38 +142,9 @@
             </div>
         </div>
 
-        <div class="col-xl-6 col-md-6">
-            <div class="card mini-stat bg-primary text-white">
-                <div class="card-body">
-                    <div class="mb-4">
-                        <div class="float-left mini-stat-img mr-4">
-                            <img src="public/assets/images/services-icon/04.png" alt="" >
-                        </div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Chambre Dispo</h5>
-                        <h4 class="font-500">{{ count_total_chambre_dispo.count_total_chambre_disponible}}<i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
-                        <div class="mini-stat-label bg-warning">
-                            <p class="mb-0"></p>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <div class="float-right">
-                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
-                        </div>
-
-                        <p class="text-white-50 mb-0"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- end row -->
-
-    <div class="row">
-{#        {% include('chart/facturation-pie.twig') %}#}
-{#        {% include('chart/subscription-histogram.twig') %}#}
-
-    </div>
 
     <!-- end row -->
 {% endblock %}
@@ -191,64 +162,15 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="public/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="public/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js"></script>
-    <script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
 
     <script src="public/plugins/select2/js/select2.min.js"></script>
     <script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-    <script src="public/assets/pages/form-advanced.init.js"></script>
 
-    <!-- HightChart  debut-->
-    <script src="public/assets/pages/highcharts.js"></script>
-    <script src="public/assets/pages/exporting.js"></script>
-    <script src="public/assets/pages/export-data.js"></script>
+
     <script src="public/assets/pages/accessibility.js"></script>
 
     <!-- HightChart fin-->
 
 
-    <script>
-        !function($) {
-            $('#range-date').datepicker({
-                language: 'fr',
-                toggleActive: true,
-                todayHighlight: true,
-                clearBtn:true,
-            });
-
-            $('#range-date_2').datepicker({
-                language: 'fr',
-                toggleActive: true,
-                todayHighlight: true,
-                clearBtn:true,
-            });
-            $('#range-date_3').datepicker({
-                language: 'fr',
-                toggleActive: true,
-                todayHighlight: true,
-                clearBtn:true,
-            });
-            $('#range-date_4').datepicker({
-                language: 'fr',
-                toggleActive: true,
-                todayHighlight: true,
-                clearBtn:true,
-            });
-            //facturation
-            $('#start_date_').datepicker("setDate", new Date());
-            $('#start_date_2').datepicker("setDate", new Date());
-
-            //end facturaiton
-
-            //subscription
-            $('#start_date_3').datepicker("setDate", new Date());
-            $('#end_date_3').datepicker("setDate", new Date());
-
-            $('#start_date_4').datepicker("setDate", new Date());
-            $('#end_date_4').datepicker("setDate", new Date());
-            //end subscription
-        }(window.jQuery)
-    </script>
 {% endblock %}
