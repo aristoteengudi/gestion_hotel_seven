@@ -2,8 +2,6 @@
 /.buildpath
 /.settings
 /vendor/
-/composer.phar
-/composer.lock
 /bin/
 /.env
 /config_local.yaml
@@ -17,3 +15,4 @@
 /package-lock.json
 /config_prod.yaml
 /.htaccess
+/config.yaml
