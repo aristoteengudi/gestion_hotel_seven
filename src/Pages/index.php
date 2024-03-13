@@ -277,7 +277,8 @@ switch ($action){
         $reservation = new \App\Model\Reservations();
         $count_chambre = new \App\Model\Chambres();
 
-        $params ['count_total_chambre_dispo'] = $count_chambre->getTotalChambreDisponible();
+        $params ['total_chambre'] = $count_chambre->getTotalChambre();
+        $params ['total_chambre_dispo'] = $count_chambre->getTotalChambreDisponible();
         $params ['count_reservation'] = $reservation->getTotalReservation();
         $params ['curent_amount_reservation_month'] = $reservation->getCurrentMonthReservationAmount();
         $params ['count_clients'] = $reservation->getTotalClient();
