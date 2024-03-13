@@ -84,15 +84,19 @@
                         <ul class="submenu">
                             <li><a href="./recettes">Recettes Journalière</a></li>
                             <li><a href="./recettes?r=mensuel">Recettes Mensuel</a></li>
-                            <li><a href="./recettes?r=tendance-journaliere">Tendance Journalière</a></li>
+                            <li><a href="#">Tendance Journalière</a></li>
                         </ul>
                     </li>
 
                 <li>
-                    <a href="./statistique" class="waves-effect">
-                        <i class="ti-pie-chart"></i> <span> Statistiques </span>
-                    </a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="ti-pie-chart"></i><span> Statistiques <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <ul class="submenu">
+                        <li><a href="./stats?r=tendance">Tendances Journalière</a></li>
+                        <li><a href="./stats?r=mensuel">Mensuel</a></li>
+                        <li><a href="./stats?r=yearly">Annuel</a></li>
+                    </ul>
                 </li>
+
 {#                {% endif %}#}
 
 {#                {% if 'admin' in session.roles %}#}
