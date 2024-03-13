@@ -194,4 +194,5 @@ class Reservations extends db
 
         $response  = \GuzzleHttp\json_encode($chart);
     }
+
 }

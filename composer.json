@@ -15,7 +15,7 @@
 		"symfonycasts/reset-password-bundle": "^1.15",
 		"symfony/security-csrf": "^5.4",
 		"phpmailer/phpmailer": "^6.6",
-		"mpdf/mpdf": "^8.1",
+		"mpdf/mpdf": "^8.2",
 		"phpoffice/phpspreadsheet": "^1.25"
 	},
 	"autoload" : {

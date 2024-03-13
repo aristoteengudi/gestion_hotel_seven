@@ -1,7 +1,15 @@
 <?php
-namespace App\Chart;
 
-class ChartOptions
+namespace App\Classes;
+
+/***
+ * Class ChartOptions
+ * @package App\Chart
+ *
+ * Aristote ENGUDI
+ * engudiaristote@gmail.com
+ */
+class Highchart
 {
     private $chart       = [];
     private $title       = [];
@@ -11,60 +19,64 @@ class ChartOptions
     private $legend      = [];
     private $tooltip     = [];
     private $series      = [];
-    private $accessibility= [];
+    private $accessibility = [];
     private $plotOptions = [];
     private $shadow = [];
     
-    function setChart($type, $plotShadow = false, $plotBorderWidth = null,$plotBackgroundColor= null){
+    public function  setChart($type, $plotShadow = false, $plotBorderWidth = null,$plotBackgroundColor= null,$zoomType = 'xy'){
         $this->chart['type'] = $type;
         $this->chart['plotShadow'] = $plotShadow;
         $this->chart['plotBorderWidth'] = $plotBorderWidth;
         $this->chart['plotBackgroundColor'] = $plotBackgroundColor;
+        $this->chart['zoomType'] = $zoomType;
     }
-    function getChart(){
+    public function  getChart(){
         return $this->chart;
     }
     
-    function setTitle($title){
+    public function  setTitle($title){
         $this->title['text'] = $title;
     }
-    function getTitle(){
+    public function  getTitle(){
         return $this->title;
     }
     
-    function setSubtitle($title){
+    public function  setSubtitle($title){
         $this->subtitle['text'] = $title;
     }
-    function getSubtitle(){
+    public function  getSubtitle(){
         return $this->subtitle;
     }
     
-    function setXAxis($type='', $labels = ['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],$visible){
+    public function  setXAxis($type='', $labels = ['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],$visible,$categories=[]){
         $this->xAxis['type'] = $type;
         $this->xAxis['labels'] = $labels;
         $this->xAxis['visible'] = $visible;
+        if (!empty($categories)){
+            $this->xAxis['categories'] = $categories;
+        }
     }
-    function getXAxis(){
+    public function  getXAxis(){
         return $this->xAxis;
     }
     
-    function setYAxis($min,$title = ['text'=>""]){
-        $this->yAxis['min'] = $min;
-        $this->yAxis['title'] = $title;
+    public function  setYAxis($min,$title = ['text'=>""],$opposite = false ){
+        $min_table = array('min'=>$min,'title'=>$title,'opposite'=>$opposite);
+        $this->yAxis [] = $min_table;
     }
-    function getYAxis(){
+    public function  getYAxis(){
         return $this->yAxis;
     }
     
-    function setLegend($enabled){
+    public function  setLegend($enabled){
         $this->legend['enabled'] = $enabled;
     }
-    function getLegend(){
+    public function  getLegend(){
         return $this->legend;
     }
 
 
-    function setTooltip($tooltip){
+    public function  setTooltip($tooltip){
         if(@$tooltip['pointFormat']) {
             $this->tooltip['pointFormat'] = @$tooltip['pointFormat'];
         }
@@ -73,38 +85,38 @@ class ChartOptions
             $this->tooltip['headerFormat'] = @$tooltip['headerFormat'];
         }
     }
-    function getTooltip(){
+    public function  getTooltip(){
         return $this->tooltip;
     }
     
-    function appendSeries($name, $data = [], $colorByPoint = true){
-        $this->series[] = ['name' => $name, 'data' => $data, 'colorByPoint' => $colorByPoint];
+    public function  appendSeries($name, $data = [],$colorByPoint = true,$type = 'column',$marker=[],$yAxis = 0){
+        $this->series[] = ['name' => $name, 'data' => $data, 'colorByPoint' => $colorByPoint,'type'=>$type,'marker'=>$marker,'yAxis'=>$yAxis];
     }
-    function getSeries(){
+    public function  getSeries(){
         return $this->series;
     }
-    function getShadow(){
+    public function  getShadow(){
         return $this->shadow;
     }
-    function setShadow($shadow = ['text'=>'']){
+    public function  setShadow($shadow = ['text'=>'']){
         $this->shadow = $shadow;
     }
-    function setAccessibility($accessibility){
+    public function  setAccessibility($accessibility){
         $this->accessibility = $accessibility;
     }
-    function getAccessibility(){
+    public function  getAccessibility(){
         return $this->accessibility;
     }
     
-    function setPlotOptions($plotOptions = []){
+    public function  setPlotOptions($plotOptions = []){
         $this->plotOptions = $plotOptions;
     }
-    function getPlotOptions(){
+    public function  getPlotOptions(){
         return $this->plotOptions;
     }
     
     
-    function getOptions(){
+    public function  getOptions(){
         $result = [];
         $reflection = new \ReflectionClass($this);
         $classProperties = $reflection->getProperties(\ReflectionProperty::IS_PRIVATE);

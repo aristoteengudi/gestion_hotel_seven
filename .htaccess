@@ -2,7 +2,7 @@
     DirectoryIndex index.php
 	RewriteEngine On
 
-	RewriteBase /your_directory_name/
+	RewriteBase /gestion_hotel_seven/
 
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-f

@@ -96,6 +96,13 @@ switch ($action){
             $reservation->cout = $chambre_cout;
             $reservation->createReservation();
 
+            $transactions = new \App\Model\Transactions();
+            $transactions->transaction_type = 'income';
+            $transactions->transaction_description = 'Reservation';
+            $transactions->transaction_montant = $chambre_cout;
+            $transactions->fk_reservation_uid = $reservation->reservation_uid;
+            $transactions->insertTransactions();
+
             $Images->InsertImage();
 
             $db->commit();

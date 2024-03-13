@@ -1,0 +1,40 @@
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-body">
+            <div id="title_1" class="d-flex justify-content-center">
+                <!--<h4 class="mt-0 header-title">{{ kpi_2 }}</h4>-->
+            </div>
+            <br>
+            <h4 class="mt-0 header-title">{{ title }}</h4>
+            <br>
+            <div id="region_report" class="col-12">
+                <figure class="highcharts-figure">
+                    <div id="recette_histogram"></div>
+                </figure>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script>
+        function FilterHistogramRecette() {
+
+            let response = fetch('./recettes?r=chart-expens-income',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }).then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    let container = 'recette_histogram';
+                    Highcharts.chart(container, result);
+                });
+        }
+
+        FilterHistogramRecette();
+
+    </script>
+{% endblock %}

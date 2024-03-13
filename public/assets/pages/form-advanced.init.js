@@ -66,7 +66,13 @@
         });
 
         // Date Picker
-        $('#datepicker').datepicker();
+        $('#datepicker').datepicker(
+            {
+                language: 'fr',
+                format: "dd/mm/yyyy",
+
+            }
+        );
     
         $('#datepicker-autoclose').datepicker({
             autoclose: true,
@@ -90,9 +96,11 @@
             weekStart: 1,
             format: "dd/mm/yyyy"
         };
-
         $('#date-range').datepicker({
-            toggleActive: true
+            language: 'fr',
+            toggleActive: true,
+            todayHighlight: true,
+            clearBtn:true,
         });
 
         // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields

@@ -14,6 +14,13 @@ function render($tpl, $params){
     echo $twig->render('pages/'.$tpl, $params);
 }
 
+function renderPdf($tpl, $params){
+    global $twig;
+
+    return $twig->render('file/'.$tpl, $params);
+}
+
+
 function redirectUrl($path,$flash_message = ''){
 
     $path = getBaseUrl().$path;

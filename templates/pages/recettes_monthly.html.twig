@@ -17,24 +17,16 @@
             <div class="card">
                 <div class="card-body">
                     <form action="recettes">
+                        <input type="hidden" name="r" value="mensuel">
                         <div class="form-row">
-                            <div class="input-daterange input-group" id="date-range">
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputStart">Du</label>
+                            <div class="input-daterange input-group" id="yearPicker">
+                                <div class="col-md-2 mb-2">
+                                    <label for="year">Année</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputStart"><i class="mdi mdi-calendar"></i></span>
+                                        <input type="text" class="form-control" placeholder="yyyy" id="year" name="year" value="{{ year }}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control" id="" name="start_date" value="{{ start_date }}" placeholder="dd/mm/yyyy" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputEnd">Au</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id=""><i class="mdi mdi-calendar"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" id="" name="end_date" value="{{ end_date }}" placeholder="dd/mm/yyyy" required>
                                     </div>
                                 </div>
 
@@ -49,10 +41,35 @@
                         </div>
                     </form>
                     <h4 class="mt-0 header-title"></h4>
-                    {% include 'partial/recettes_view.twig' %}
+                    {% if filter_data|length > 0 %}
+
+                    {% else %}
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Revenu Mensuel</th>
+                                <th>Dépense Mensuel</th>
+                                <th>Profit Mensuel</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for value in income_expense_monthly %}
+                                <tr>
+                                    <td>{{ value._date }}</td>
+                                    <td>{{ value.incomes }} $</td>
+                                    <td>{{ value.expenses }} $</td>
+                                    <td>{{ value.profit }} $</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
                 </div>
             </div>
         </div> <!-- end col -->
+
 
     </div> <!-- end row -->
 
@@ -112,4 +129,12 @@
 
     <script src="public/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
     <script src="public/assets/pages/lightbox.js"></script>
+
+    <script>
+        $("#yearPicker").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+    </script>
 {% endblock %}

@@ -65,9 +65,12 @@ switch ($action){
         break;
     default:
 
-        $chambres = new \App\Model\Reservations();
+        $reservation = new \App\Model\Reservations();
+        $chambres = new \App\Model\Chambres();
 
-        $params ['reservations'] = $chambres->getReservations();
+        $params ['reservations'] = $reservation->getReservations();
+        $params ['count_total_chambre_dispo'] = $chambres->getTotalChambreDisponible();
+
 
         render('reservations.html.twig', $params);
 }
