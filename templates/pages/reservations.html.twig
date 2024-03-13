@@ -17,7 +17,6 @@
             <div class="card">
                 <div class="card-body">
                     <form action="reservations">
-                        <input type="hidden" name="r" value="filter">
                         <div class="form-row">
                             <div class="input-daterange input-group" id="date-range">
                                 <div class="col-md-3 mb-3">
@@ -42,10 +41,19 @@
                                 <div class="col-md-3 mb-3">
                                     <label for="inputEnd">Status</label>
                                     <div class="input-group">
-                                        <select class="form-control" name="room_status" id="" required>
-                                            <option value=""></option>
-                                            <option value="actif">Actif</option>
-                                            <option value="inactif">Inactif</option>
+                                        <select class="form-control" name="_status" id="" required>
+                                            <option value="{% if _status == 'all' %}all{% elseif _status =="actif" %}actif{% elseif _status =='inactif' %}inactif{% endif %}">
+                                                {% if _status == 'all' %} Tous {% else %}{{ _status | capitalize }} {% endif %}
+                                            </option>
+                                            {% if _status != "actif" %}
+                                                <option value="actif">Actif</option>
+                                            {% endif %}
+                                            {% if _status != "inactif" %}
+                                                <option value="inactif">Inactif</option>
+                                            {% endif %}
+                                            {% if _status != "all" %}
+                                            <option value="all">Tous</option>
+                                            {% endif %}
                                         </select>
                                     </div>
                                 </div>
@@ -121,6 +129,9 @@
     <link href="public/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
     <link href="public/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block javascripts %}
