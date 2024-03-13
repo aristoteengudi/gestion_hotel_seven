@@ -40,7 +40,7 @@ if (isset($_GET['file'])){
         $mpdf->SetHTMLFooter('
                 <table width="100%">
                     <tr>
-                        <td width="80%"><p style="font-size: 10px">Adresse : Avenue Kabinda N°XXXXXX, Commune de Lingwala, Réference Terrain. <br>Tél. +243 XXXXXXXXXXXX</p></td>
+                        <td width="80%"><p style="font-size: 10px">Adresse : Avenue Kabinda n°xxxxxxxxx, Commune de Lingwala, Réference Terrain. <br>Tél. +243 XXXXXXXXXXXX</p></td>
                         <td width="20%"><p style="font-size: 10px">Imprimé le {DATE j-m-Y}</p></td>
                     </tr>
                 </table>');
