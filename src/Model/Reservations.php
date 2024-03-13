@@ -88,7 +88,7 @@ class Reservations extends db
 
     public function getTotalClient(){
 
-        $query = $this->db->fetchAssociative('SELECT count(*) as count_total_clients FROM t_clients');
+        $query = $this->db->fetchAssociative('SELECT count(*) as count_total_clients FROM t_clients where month(created_at) = month(curdate()) ');
 
         return $query;
     }
