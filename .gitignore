@@ -10,7 +10,6 @@
 /config_dev.yaml
 /src/ElasticSearch/
 /.idea/
-/.htaccess
 /var/
 /public/upload
 /.pydevproject
