@@ -34,5 +34,5 @@ switch ($action){
 
         $params ['logs'] = $query->getAllLogs();
 
-        render('logs.html.twig', $params);
+        render('users/logs.html.twig', $params);
 }
