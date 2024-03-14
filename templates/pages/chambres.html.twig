@@ -25,7 +25,33 @@
                         </div>
                     </div>
                     <h4 class="mt-0 header-title"></h4>
-                    {% include 'partial/chambre_view.twig' %}
+
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>#chambre_id</th>
+                            <th>numéro_chambre</th>
+                            <th>Etat Disponibilité</th>
+                            <th>Catégorie</th>
+                            <th>Coût</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for value in list_chambre %}
+                            <tr>
+                                <td>{{ value.id }}</td>
+                                <td>{{ value.numero_chambre }}</td>
+                                <td>{{ value.etat_disponibilite }}</td>
+                                <td>{{ value.categorie }}</td>
+                                <td>{{ value.cout }}</td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div> <!-- end col -->
