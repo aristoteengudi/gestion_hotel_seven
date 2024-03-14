@@ -57,10 +57,6 @@ switch ($action){
             $hours_categorie [] = $hours['hours_'];
         }
 
-
-        //echo '<pre>';
-        //print_r($hours_categorie);
-        //die ();
         $chart = [];
         $chart['container'] = "tendance_daily_histogram";
         $cOptions = new \App\Classes\Highchart();
@@ -91,15 +87,71 @@ switch ($action){
         $options = $cOptions->getOptions();
 
         $chart = array_merge($chart, $options);
-
-        //echo '<pre style="margin:100px 0 0 100px;">';print_r($chart);echo '</pre>';
-        //$params ['result'] = $result->getIncomeExpenseMonthly($year);
-        //$params ['year'] = $year;
     
         $params ['tendace_daily_data'] = $chart;
 
-        render('tendances.html.twig', $params);
+        render('tendaces/tendances.html.twig', $params);
 
+        break;
+    case 'mensuel':
+
+        $breadcrumb = [
+            [ 'path' => './', 'name' => 'Dashboard'],
+            [ 'path' => './stats', 'name' => 'Tendances Mensuel'],
+        ];
+
+        $params = ['page_title'=>'Tendances Mensuel', 'breadcrumb' => $breadcrumb];
+
+        $_year_month = isset($_GET['_year_month']) ? $_GET['_year_month']: null;
+        $params ['_year_month'] = $_year_month ;
+
+        $result = new \App\Model\Transactions();
+        $monthlyData = $result->geteMonthlyTendace($_year_month);
+
+        $new_array = array();
+        $series_name = array();
+        $details = 'KPI';
+
+        $month_categories= array();
+
+        foreach ($monthlyData as $month_){
+            $month_categories [] = $month_['month_'];
+        }
+
+        $chart = [];
+        $chart['container'] = "tendance_monthly_histogram";
+        $cOptions = new \App\Classes\Highchart();
+        $cOptions->setChart("column",false,null,null);
+        $cOptions->setTitle($details);
+        $cOptions->setShadow(['text'=>false]);
+        $cOptions->setTooltip(['pointFormat' =>'{series.name}: <b>{point.y}</b>','headerFormat'=>'<b>{series.name}</b><br><br>']);
+        $cOptions->setXAxis('',['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],true,'');
+        $cOptions->setYAxis(0,['text'=>'Montant '],false,['format'=>'{value} $']);
+        $cOptions->setAccessibility(['point'=>['valueSuffix'=> '%']]);
+        $cOptions->setPlotOptions( [
+            'series'=>[
+                'dataLabels'=>[
+                    'enabled'=>true,
+                    'color'=>'#000',
+                    'style'=>['fontWeight'=>'bolder'],
+                    'inside' =>true,
+                ],
+                'pointPadding'=>'0.1',
+                'groupPadding'=>'0',
+            ]
+        ]);
+        foreach ($monthlyData as $value){
+            $cOptions->appendSeries((string)$value['month_'],[(int)$value['monthly_income']],
+                false,'column',[],0,$tooltip=['valueSuffix'=>'$']);
+        }
+
+        $options = $cOptions->getOptions();
+
+        $chart = array_merge($chart, $options);
+
+        $params ['tendance_monthly_data'] = $chart;
+
+        render('tendaces/tendances_mensuel.html.twig', $params);
         break;
     default:
 
