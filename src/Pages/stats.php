@@ -127,7 +127,7 @@ switch ($action){
         $cOptions->setTooltip(['pointFormat' =>'{series.name}: <b>{point.y}</b>','headerFormat'=>'<b>{series.name}</b><br><br>']);
         $cOptions->setXAxis('',['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],true,'');
         $cOptions->setYAxis(0,['text'=>'Montant '],false,['format'=>'{value} $']);
-        $cOptions->setAccessibility(['point'=>['valueSuffix'=> '%']]);
+        $cOptions->setAccessibility(['point'=>['valueSuffix'=> '$']]);
         $cOptions->setPlotOptions( [
             'series'=>[
                 'dataLabels'=>[
@@ -140,6 +140,7 @@ switch ($action){
                 'groupPadding'=>'0',
             ]
         ]);
+
         foreach ($monthlyData as $value){
             $cOptions->appendSeries((string)$value['month_'],[(int)$value['monthly_income']],
                 false,'column',[],0,$tooltip=['valueSuffix'=>'$']);
