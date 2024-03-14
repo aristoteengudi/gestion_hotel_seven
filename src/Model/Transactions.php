@@ -215,19 +215,44 @@ FROM (
 
     public function getDailyHourTendace($_type_tendace){
 
-        $query = "SELECT SUM(cout) AS day_hourly_income,CONCAT(TIME(created_at),':..') AS hours_
+        $query = "SELECT SUM(cout) AS day_hourly_income,TIME(created_at) AS hours_
                         FROM `t_reservations`
                         WHERE TIME(created_at)  BETWEEN TIME(created_at) AND TIME(NOW()) 
                         AND DAY(created_at) = DAY(NOW()) GROUP BY TIME(created_at)";
 
         if ($_type_tendace == 'hours'){
 
-            $query = "SELECT SUM(cout) AS day_hourly_income,CONCAT(HOUR(created_at),':..') AS hours_
+            $query = "SELECT SUM(cout) AS day_hourly_income,CONCAT(HOUR(created_at),':00..59    ') AS hours_
                         FROM `t_reservations`
                         WHERE HOUR(created_at)  BETWEEN HOUR(created_at) AND HOUR(NOW()) 
                         AND DAY(created_at) = DAY(NOW()) GROUP BY HOUR(created_at)";
 
         }
+
+        return $this->db->fetchAllAssociative($query);
+
+    }
+    public function geteMonthlyTendace($year_month){
+
+
+        $queryAdd = "WHERE MONTH(created_at) = MONTH(NOW()) AND  YEAR(created_at) = YEAR(NOW())";
+
+        if ($year_month){
+
+            $year_month = explode('-',$year_month);
+            $year = $year_month[0];
+            $month = $year_month[1];
+
+            $queryAdd = "WHERE MONTH(created_at) = {$month} AND  YEAR(created_at) = {$year}";
+        }
+
+        $query = "SELECT SUM(cout) AS monthly_income,DATE(created_at) AS month_
+                        FROM `t_reservations`
+                        {$queryAdd}
+                        GROUP BY DATE(created_at) ORDER BY DATE(created_at) DESC ;";
+
+
+
 
         return $this->db->fetchAllAssociative($query);
 
