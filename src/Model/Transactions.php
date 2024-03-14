@@ -213,6 +213,25 @@ FROM (
 
     }
 
+    public function getDailyHourTendace($_type_tendace){
+
+        $query = "SELECT SUM(cout) AS day_hourly_income,CONCAT(TIME(created_at),':..') AS hours_
+                        FROM `t_reservations`
+                        WHERE TIME(created_at)  BETWEEN TIME(created_at) AND TIME(NOW()) 
+                        AND DAY(created_at) = DAY(NOW()) GROUP BY TIME(created_at)";
+
+        if ($_type_tendace == 'hours'){
+
+            $query = "SELECT SUM(cout) AS day_hourly_income,CONCAT(HOUR(created_at),':..') AS hours_
+                        FROM `t_reservations`
+                        WHERE HOUR(created_at)  BETWEEN HOUR(created_at) AND HOUR(NOW()) 
+                        AND DAY(created_at) = DAY(NOW()) GROUP BY HOUR(created_at)";
+
+        }
+
+        return $this->db->fetchAllAssociative($query);
+
+    }
 
 
     private function getCreatedDate(){ return date('Y-m-d H:i:s');}

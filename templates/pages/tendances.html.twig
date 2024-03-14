@@ -1,0 +1,135 @@
+{% extends 'base_layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    {% set flash = session.flash_message %}
+
+    {% if flash.string == 'success' %}
+        <div class="col-lg-12">
+            <div class="alert alert-success bg-success text-white" role="alert">
+                <strong>Well done!</strong> {{ flash.message }}.
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="">
+                        <div class="form-row">
+                            <div class="input-daterange input-group" id="date-range">
+                                <div class="col-md-3 mb-3">
+                                    <label for="inputEnd">Choisir Type Tendance</label>
+                                    <div class="input-group">
+                                        <input type="hidden" name="r" value="tendance">
+                                        <select class="form-control" name="_type_tendance" id="" required>
+                                            <option value="{% if _type_tendance =="hours" %}Tendance par Heure{% elseif _type_tendance =='times' %}Tendance par Minutes{% endif %}">
+                                                {% if _type_tendance =="hours" %}Tendance par Heure{% elseif _type_tendance =='times' %}Tendance par Minutes{% endif %}
+                                            </option>
+                                            {% if _type_tendance != "hours" %}
+                                                <option value="hours">Tendance par Heure</option>
+                                            {% endif %}
+                                            {% if _type_tendance != "times" %}
+                                                <option value="times">Tendance par Minutes</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="inputEnd">&nbsp;</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary waves-effect" type="submit">Filtrer <i class="fas fa-filter"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <h4 class="mt-0 header-title"></h4>
+                    <br>
+                    <div id="tendance_daily" class="col-12">
+                        <figure class="highcharts-figure">
+                            <div id="tendance_daily_histogram"></div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+
+    </div> <!-- end row -->
+
+    {{ unset_flash() }}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="public/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="public/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="public/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Required datatable js -->
+    <script src="public/assets/js/sweetalert.min.js"></script>
+    <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="public/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="public/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="public/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="public/plugins/datatables/jszip.min.js"></script>
+    <script src="public/plugins/datatables/pdfmake.min.js"></script>
+    <script src="public/plugins/datatables/vfs_fonts.js"></script>
+    <script src="public/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="public/plugins/datatables/buttons.print.min.js"></script>
+    <script src="public/plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="public/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="public/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+
+    <!-- Datatable init js -->
+    <script src="public/assets/pages/datatables.init.js"></script>
+
+
+    <script src="public/plugins/select2/js/select2.min.js"></script>
+    <script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="public/assets/pages/form-advanced.init.js"></script>
+
+    <!-- HightChart  debut-->
+    <script src="public/assets/pages/highcharts.js"></script>
+    <script src="public/assets/pages/exporting.js"></script>
+    <script src="public/assets/pages/export-data.js"></script>
+    <script src="public/assets/pages/accessibility.js"></script>
+
+    <!-- HightChart fin-->
+
+
+
+    <script>
+        $("#yearPicker").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+    </script>
+
+    <script>
+        function showDailyTendace() {
+            let container = 'tendance_daily_histogram';
+            Highcharts.chart(container, {{ tendace_daily_data | json_encode() | raw }})
+        }
+        showDailyTendace();
+    </script>
+{% endblock %}
