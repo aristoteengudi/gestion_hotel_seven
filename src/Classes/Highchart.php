@@ -60,8 +60,8 @@ class Highchart
         return $this->xAxis;
     }
     
-    public function  setYAxis($min,$title = ['text'=>""],$opposite = false ){
-        $min_table = array('min'=>$min,'title'=>$title,'opposite'=>$opposite);
+    public function  setYAxis($min,$title = ['text'=>""],$opposite = false ,$labels=['format'=>'']){
+        $min_table = array('min'=>$min,'title'=>$title,'opposite'=>$opposite,'labels'=>$labels);
         $this->yAxis [] = $min_table;
     }
     public function  getYAxis(){
@@ -89,8 +89,8 @@ class Highchart
         return $this->tooltip;
     }
     
-    public function  appendSeries($name, $data = [],$colorByPoint = true,$type = 'column',$marker=[],$yAxis = 0){
-        $this->series[] = ['name' => $name, 'data' => $data, 'colorByPoint' => $colorByPoint,'type'=>$type,'marker'=>$marker,'yAxis'=>$yAxis];
+    public function  appendSeries($name, $data = [],$colorByPoint = true,$type = 'column',$marker=[],$yAxis = 0,$tooltip=['valueSuffix'=>'']){
+        $this->series[] = ['name' => $name, 'data' => $data, 'colorByPoint' => $colorByPoint,'type'=>$type,'marker'=>$marker,'yAxis'=>$yAxis,'tooltip'=>$tooltip];
     }
     public function  getSeries(){
         return $this->series;
