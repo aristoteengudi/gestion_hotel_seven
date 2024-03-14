@@ -198,5 +198,5 @@ switch ($action){
 
         $params ['list_users'] = $user->getAllUsers();
 
-        render('users.html.twig', $params);
+        render('users/users.html.twig', $params);
 }
