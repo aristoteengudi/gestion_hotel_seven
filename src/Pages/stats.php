@@ -125,7 +125,7 @@ switch ($action){
         $cOptions->setTitle($details);
         $cOptions->setShadow(['text'=>false]);
         $cOptions->setTooltip(['pointFormat' =>'{series.name}: <b>{point.y}</b>','headerFormat'=>'<b>{series.name}</b><br><br>']);
-        $cOptions->setXAxis('',['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],true,'');
+        $cOptions->setXAxis('',['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],true,[]);
         $cOptions->setYAxis(0,['text'=>'Montant '],false,['format'=>'{value} $']);
         $cOptions->setAccessibility(['point'=>['valueSuffix'=> '$']]);
         $cOptions->setPlotOptions( [
@@ -153,6 +153,86 @@ switch ($action){
         $params ['tendance_monthly_data'] = $chart;
 
         render('tendaces/tendances_mensuel.html.twig', $params);
+        break;
+    case 'mtd':
+
+        $breadcrumb = [
+            [ 'path' => './', 'name' => 'Dashboard'],
+            [ 'path' => './stats', 'name' => 'Tendances Month to Date'],
+        ];
+
+        $params = ['page_title'=>'Analyses ', 'breadcrumb' => $breadcrumb];
+
+        $_firstMonth    = isset($_GET['firstMonth']) ? $_GET['firstMonth']: null;
+        $_secondMonth   = isset($_GET['secondMonth']) ? $_GET['secondMonth']: null;
+
+        $params ['firstMonth'] = $_firstMonth ;
+        $params ['secondMonth'] = $_secondMonth ;
+
+        $result = new \App\Model\Transactions();
+        $mtdData = $result->getMonthToDate($_firstMonth,$_secondMonth);
+
+
+        $details = 'KPI';
+
+        $day_categorie = ['1','2','3','4','5','6','7','8','9','10','11',
+                        '12','13','14','15','16','17','18','19','20',
+                        '21','22','23','24','25','26','27','28','29',
+                        '30','31'];
+
+        $_range_some = 1*700;
+
+        $range = array();
+
+
+        foreach ($day_categorie as $value){
+            $range [] = $_range_some;
+        }
+
+        $chart = [];
+        $chart['container'] = "tendance_mtd_histogram";
+        $cOptions = new \App\Classes\Highchart();
+        $cOptions->setChart('column',false,null,null);
+        $cOptions->setTitle($details);
+        //$cOptions->setShadow(['text'=>false]);
+        //$cOptions->setTooltip(['pointFormat' =>'{series.name}: <b>{point.y}</b>','headerFormat'=>'<b>{series.name}</b><br><br>']);
+        $cOptions->setXAxis('',['rotation'=>-45,'style'=>['fontSize'=>'13px','fontFamily'=>'Verdana, sans-serif']],true,$day_categorie);
+        $cOptions->setYAxis('',['text'=>'Montant Recette']);
+        $cOptions->setYAxis('',['text'=>'Montant Objectif'],true);
+        $cOptions->setPlotOptions( [
+            'series'=>[
+                'dataLabels'=>[
+                    'enabled'=>true,
+                    'color'=>'#000',
+                    'style'=>['fontWeight'=>'bolder'],
+                    'inside' =>true,
+                ],
+                'pointPadding'=>'0.1',
+                'groupPadding'=>'0',
+            ]
+        ]);
+
+
+        if ($mtdData){
+            foreach ($mtdData as $value){
+                $cOptions->appendSeries((string)$value['date'],$value['data'],
+                    false,'column',[],0,$tooltip=['valueSuffix'=>'$']);
+            }
+        }
+
+        $marker = ['lineWidth'=>2,
+            'lineColor'=>'Highcharts.getOptions().colors[1]',
+            'fillColor'=>'white'];
+
+        $cOptions->appendSeries('Objectif',$range,false,'spline',$marker,1);
+
+        $options = $cOptions->getOptions();
+
+        $chart = array_merge($chart, $options);
+
+        $params ['tendance_mtd_histogram'] = $chart;
+
+        render('tendaces/tendances_mtd.html.twig', $params);
         break;
     default:
 
