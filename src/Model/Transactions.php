@@ -257,6 +257,44 @@ FROM (
         return $this->db->fetchAllAssociative($query);
 
     }
+    public function getMonthToDate($firstMonth, $secondMonth){
+
+        if ($firstMonth and $secondMonth){
+
+            $_firstMonth = strip_tags($firstMonth);
+            $_secondMonth = strip_tags($secondMonth);
+
+            $_array_one = array();
+            $_array_two = array();
+
+
+            $first_query = "SELECT SUM(cout) AS monthly_income,DATE(created_at) AS date_
+                        FROM `t_reservations`
+                        WHERE DATE_FORMAT(created_at,'%Y-%m') = '{$_firstMonth}' 
+                        GROUP BY DATE(created_at) ORDER BY DATE(created_at) ASC ;";
+
+            $second_query = "SELECT SUM(cout) AS monthly_income,DATE(created_at) AS date_
+                        FROM `t_reservations`
+                        WHERE DATE_FORMAT(created_at,'%Y-%m') = '{$_secondMonth}' 
+                        GROUP BY DATE(created_at) ORDER BY DATE(created_at) ASC ;";
+
+            $execut_first = $this->db->fetchAllAssociative($first_query);
+            $execut_second = $this->db->fetchAllAssociative($second_query);
+
+
+            foreach ($execut_first as $value){
+                $_array_one [] = (int)$value['monthly_income'];
+            }
+
+            foreach ($execut_second as $value){
+                $_array_two [] = (int)$value['monthly_income'];
+            }
+
+            return array('1'=>array('date'=>$firstMonth,'data'=>$_array_one),
+                            '2'=>array('date'=>$secondMonth,'data'=>$_array_two));
+        }
+
+    }
 
 
     private function getCreatedDate(){ return date('Y-m-d H:i:s');}
