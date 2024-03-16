@@ -165,9 +165,11 @@ switch ($action){
 
         $_firstMonth    = isset($_GET['firstMonth']) ? $_GET['firstMonth']: null;
         $_secondMonth   = isset($_GET['secondMonth']) ? $_GET['secondMonth']: null;
+        $_objectif      = isset($_GET['objectif']) ? $_GET['objectif']: null;
 
         $params ['firstMonth'] = $_firstMonth ;
         $params ['secondMonth'] = $_secondMonth ;
+        $params ['objectif'] = $_objectif ;
 
         $result = new \App\Model\Transactions();
         $mtdData = $result->getMonthToDate($_firstMonth,$_secondMonth);
@@ -180,7 +182,7 @@ switch ($action){
                         '21','22','23','24','25','26','27','28','29',
                         '30','31'];
 
-        $_range_some = 1*700;
+        $_range_some = 1*$_objectif;
 
         $range = array();
 
